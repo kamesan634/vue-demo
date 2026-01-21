@@ -1,0 +1,51 @@
+# 依賴目錄
+node_modules/
+
+# 建置輸出
+dist/
+dist-ssr/
+*.local
+
+# 編輯器配置
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 環境變數（重要！不要上傳敏感資訊）
+.env
+.env.local
+.env.*.local
+
+# 日誌文件
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 系統文件
+.DS_Store
+Thumbs.db
+
+# TypeScript 快取
+*.tsbuildinfo
+
+# 自動生成的文件（可選擇保留）
+# src/auto-imports.d.ts
+# src/components.d.ts
+.eslintrc-auto-import.json
+
+# 測試覆蓋率
+coverage/
+
+# Vite 自動生成
+vite.config.d.ts
+
+# Claude Code
+.claude/
