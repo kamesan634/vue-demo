@@ -13,7 +13,13 @@
     <div class="search-area">
       <a-form layout="inline" :model="searchForm">
         <a-form-item label="類型">
-          <a-select v-model:value="searchForm.type" placeholder="全部" style="width: 120px" allow-clear @change="handleSearch">
+          <a-select
+            v-model:value="searchForm.type"
+            placeholder="全部"
+            style="width: 120px"
+            allow-clear
+            @change="handleSearch"
+          >
             <a-select-option value="STORE">門市</a-select-option>
             <a-select-option value="WAREHOUSE">倉庫</a-select-option>
           </a-select>
@@ -22,7 +28,14 @@
     </div>
 
     <div class="content-area">
-      <a-table :columns="columns" :data-source="stores" :loading="loading" :pagination="pagination" row-key="id" @change="handleTableChange">
+      <a-table
+        :columns="columns"
+        :data-source="stores"
+        :loading="loading"
+        :pagination="pagination"
+        row-key="id"
+        @change="handleTableChange"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'type'">
             <a-tag :color="record.type === 'STORE' ? 'blue' : 'green'">{{ record.typeName }}</a-tag>
@@ -31,7 +44,9 @@
             <a-tag v-if="record.main" color="gold">主要</a-tag>
           </template>
           <template v-else-if="column.key === 'active'">
-            <a-tag :color="record.active ? 'success' : 'default'">{{ record.active ? '啟用' : '停用' }}</a-tag>
+            <a-tag :color="record.active ? 'success' : 'default'">{{
+              record.active ? '啟用' : '停用'
+            }}</a-tag>
           </template>
           <template v-else-if="column.key === 'actions'">
             <div class="table-actions">
@@ -82,7 +97,11 @@ const columns = [
 const loadStores = async (): Promise<void> => {
   loading.value = true
   try {
-    const response = await getStores({ page: (pagination.current || 1) - 1, size: pagination.pageSize, type: searchForm.type }) // Spring Data 分頁從 0 開始
+    const response = await getStores({
+      page: (pagination.current || 1) - 1,
+      size: pagination.pageSize,
+      type: searchForm.type,
+    }) // Spring Data 分頁從 0 開始
     stores.value = response.content
     pagination.total = response.totalElements
   } catch (error) {

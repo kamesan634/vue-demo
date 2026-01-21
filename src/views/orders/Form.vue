@@ -11,18 +11,41 @@
     </div>
 
     <div class="content-area">
-      <a-form ref="formRef" :model="formState" :label-col="{ span: 4 }" :wrapper-col="{ span: 18 }" @finish="handleSubmit">
+      <a-form
+        ref="formRef"
+        :model="formState"
+        :label-col="{ span: 4 }"
+        :wrapper-col="{ span: 18 }"
+        @finish="handleSubmit"
+      >
         <!-- 基本資訊 -->
         <a-card title="基本資訊" class="mb-16">
           <a-row :gutter="16">
             <a-col :span="12">
-              <a-form-item label="門市" name="storeId" :rules="[{ required: true, message: '請選擇門市' }]">
-                <a-select v-model:value="formState.storeId" placeholder="請選擇門市" :options="stores" :field-names="{ label: 'name', value: 'id' }" />
+              <a-form-item
+                label="門市"
+                name="storeId"
+                :rules="[{ required: true, message: '請選擇門市' }]"
+              >
+                <a-select
+                  v-model:value="formState.storeId"
+                  placeholder="請選擇門市"
+                  :options="stores"
+                  :field-names="{ label: 'name', value: 'id' }"
+                />
               </a-form-item>
             </a-col>
             <a-col :span="12">
               <a-form-item label="客戶" name="customerId">
-                <a-select v-model:value="formState.customerId" placeholder="選擇客戶（可選）" :options="customers" :field-names="{ label: 'name', value: 'id' }" allow-clear show-search option-filter-prop="label" />
+                <a-select
+                  v-model:value="formState.customerId"
+                  placeholder="選擇客戶（可選）"
+                  :options="customers"
+                  :field-names="{ label: 'name', value: 'id' }"
+                  allow-clear
+                  show-search
+                  option-filter-prop="label"
+                />
               </a-form-item>
             </a-col>
           </a-row>
@@ -30,40 +53,77 @@
 
         <!-- 商品明細 -->
         <a-card title="商品明細" class="mb-16">
-          <a-table :columns="itemColumns" :data-source="formState.items" :pagination="false" row-key="key">
+          <a-table
+            :columns="itemColumns"
+            :data-source="formState.items"
+            :pagination="false"
+            row-key="key"
+          >
             <template #bodyCell="{ column, record, index }">
               <template v-if="column.key === 'product'">
-                <a-select v-model:value="record.productId" placeholder="選擇商品" :options="products" :field-names="{ label: 'name', value: 'id' }" show-search option-filter-prop="label" style="width: 200px" @change="(val: number) => handleProductChange(index, val)" />
+                <a-select
+                  v-model:value="record.productId"
+                  placeholder="選擇商品"
+                  :options="products"
+                  :field-names="{ label: 'name', value: 'id' }"
+                  show-search
+                  option-filter-prop="label"
+                  style="width: 200px"
+                  @change="(val: number) => handleProductChange(index, val)"
+                />
               </template>
               <template v-else-if="column.key === 'quantity'">
                 <a-input-number v-model:value="record.quantity" :min="1" @change="calculateTotal" />
               </template>
               <template v-else-if="column.key === 'unitPrice'">
-                <a-input-number v-model:value="record.unitPrice" :min="0" :precision="2" @change="calculateTotal" />
+                <a-input-number
+                  v-model:value="record.unitPrice"
+                  :min="0"
+                  :precision="2"
+                  @change="calculateTotal"
+                />
               </template>
               <template v-else-if="column.key === 'subtotal'">
                 NT$ {{ ((record.quantity || 0) * (record.unitPrice || 0)).toLocaleString() }}
               </template>
               <template v-else-if="column.key === 'actions'">
-                <a-button type="link" danger @click="removeItem(index)"><DeleteOutlined /></a-button>
+                <a-button type="link" danger @click="removeItem(index)"
+                  ><DeleteOutlined
+                /></a-button>
               </template>
             </template>
           </a-table>
-          <a-button type="dashed" block class="mt-16" @click="addItem"><PlusOutlined /> 新增商品</a-button>
+          <a-button type="dashed" block class="mt-16" @click="addItem"
+            ><PlusOutlined /> 新增商品</a-button
+          >
         </a-card>
 
         <!-- 金額摘要 -->
         <a-card title="金額摘要" class="mb-16">
           <a-descriptions :column="2">
-            <a-descriptions-item label="小計">NT$ {{ subtotal.toLocaleString() }}</a-descriptions-item>
+            <a-descriptions-item label="小計"
+              >NT$ {{ subtotal.toLocaleString() }}</a-descriptions-item
+            >
             <a-descriptions-item label="折扣">
-              <a-input-number v-model:value="formState.discountAmount" :min="0" :precision="2" style="width: 150px" />
+              <a-input-number
+                v-model:value="formState.discountAmount"
+                :min="0"
+                :precision="2"
+                style="width: 150px"
+              />
             </a-descriptions-item>
             <a-descriptions-item label="稅額">
-              <a-input-number v-model:value="formState.taxAmount" :min="0" :precision="2" style="width: 150px" />
+              <a-input-number
+                v-model:value="formState.taxAmount"
+                :min="0"
+                :precision="2"
+                style="width: 150px"
+              />
             </a-descriptions-item>
             <a-descriptions-item label="總計">
-              <span class="text-primary" style="font-size: 18px; font-weight: bold">NT$ {{ totalAmount.toLocaleString() }}</span>
+              <span class="text-primary" style="font-size: 18px; font-weight: bold"
+                >NT$ {{ totalAmount.toLocaleString() }}</span
+              >
             </a-descriptions-item>
           </a-descriptions>
         </a-card>
@@ -121,9 +181,13 @@ const itemColumns = [
   { title: '', key: 'actions', width: 60 },
 ]
 
-const subtotal = computed(() => formState.items.reduce((sum, item) => sum + (item.quantity || 0) * (item.unitPrice || 0), 0))
+const subtotal = computed(() =>
+  formState.items.reduce((sum, item) => sum + (item.quantity || 0) * (item.unitPrice || 0), 0)
+)
 
-const totalAmount = computed(() => subtotal.value - (formState.discountAmount || 0) + (formState.taxAmount || 0))
+const totalAmount = computed(
+  () => subtotal.value - (formState.discountAmount || 0) + (formState.taxAmount || 0)
+)
 
 const loadBaseData = async (): Promise<void> => {
   try {
@@ -172,7 +236,11 @@ const handleSubmit = async (): Promise<void> => {
   try {
     await createOrder({
       ...formState,
-      items: formState.items.map(({ productId, quantity, unitPrice }) => ({ productId, quantity, unitPrice })),
+      items: formState.items.map(({ productId, quantity, unitPrice }) => ({
+        productId,
+        quantity,
+        unitPrice,
+      })),
     })
     message.success('訂單建立成功')
     router.push('/orders/list')

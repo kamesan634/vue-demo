@@ -13,13 +13,33 @@
     <div class="search-area">
       <a-form layout="inline" :model="searchForm">
         <a-form-item label="日期區間">
-          <a-range-picker v-model:value="searchForm.dateRange" format="YYYY-MM-DD" @change="handleSearch" />
+          <a-range-picker
+            v-model:value="searchForm.dateRange"
+            format="YYYY-MM-DD"
+            @change="handleSearch"
+          />
         </a-form-item>
         <a-form-item label="門市">
-          <a-select v-model:value="searchForm.storeId" placeholder="全部" style="width: 150px" allow-clear :options="stores" :field-names="{ label: 'name', value: 'id' }" @change="handleSearch" />
+          <a-select
+            v-model:value="searchForm.storeId"
+            placeholder="全部"
+            style="width: 150px"
+            allow-clear
+            :options="stores"
+            :field-names="{ label: 'name', value: 'id' }"
+            @change="handleSearch"
+          />
         </a-form-item>
         <a-form-item label="分類">
-          <a-tree-select v-model:value="searchForm.categoryId" :tree-data="categories" :field-names="{ label: 'name', value: 'id', children: 'children' }" placeholder="全部" allow-clear style="width: 200px" @change="handleSearch" />
+          <a-tree-select
+            v-model:value="searchForm.categoryId"
+            :tree-data="categories"
+            :field-names="{ label: 'name', value: 'id', children: 'children' }"
+            placeholder="全部"
+            allow-clear
+            style="width: 200px"
+            @change="handleSearch"
+          />
         </a-form-item>
       </a-form>
     </div>
@@ -29,22 +49,45 @@
       <a-row :gutter="16" class="mb-16">
         <a-col :xs="12" :md="6">
           <a-card>
-            <a-statistic title="總銷售額" :value="summary.totalRevenue" prefix="NT$" :precision="0" />
+            <a-statistic
+              title="總銷售額"
+              :value="summary.totalRevenue"
+              prefix="NT$"
+              :precision="0"
+            />
           </a-card>
         </a-col>
         <a-col :xs="12" :md="6">
           <a-card>
-            <a-statistic title="總成本" :value="summary.totalCost" prefix="NT$" :precision="0" :value-style="{ color: '#cf1322' }" />
+            <a-statistic
+              title="總成本"
+              :value="summary.totalCost"
+              prefix="NT$"
+              :precision="0"
+              :value-style="{ color: '#cf1322' }"
+            />
           </a-card>
         </a-col>
         <a-col :xs="12" :md="6">
           <a-card>
-            <a-statistic title="毛利" :value="summary.totalProfit" prefix="NT$" :precision="0" :value-style="{ color: '#3f8600' }" />
+            <a-statistic
+              title="毛利"
+              :value="summary.totalProfit"
+              prefix="NT$"
+              :precision="0"
+              :value-style="{ color: '#3f8600' }"
+            />
           </a-card>
         </a-col>
         <a-col :xs="12" :md="6">
           <a-card>
-            <a-statistic title="毛利率" :value="summary.profitMargin" suffix="%" :precision="1" :value-style="{ color: summary.profitMargin >= 30 ? '#3f8600' : '#faad14' }" />
+            <a-statistic
+              title="毛利率"
+              :value="summary.profitMargin"
+              suffix="%"
+              :precision="1"
+              :value-style="{ color: summary.profitMargin >= 30 ? '#3f8600' : '#faad14' }"
+            />
           </a-card>
         </a-col>
       </a-row>
@@ -65,7 +108,14 @@
 
       <!-- 商品利潤排行 -->
       <a-card title="商品利潤排行">
-        <a-table :columns="columns" :data-source="profitData" :loading="loading" :pagination="pagination" row-key="productId" @change="handleTableChange">
+        <a-table
+          :columns="columns"
+          :data-source="profitData"
+          :loading="loading"
+          :pagination="pagination"
+          row-key="productId"
+          @change="handleTableChange"
+        >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'revenue'">
               NT$ {{ record.revenue?.toLocaleString() }}
@@ -79,7 +129,12 @@
               </span>
             </template>
             <template v-else-if="column.key === 'profitMargin'">
-              <a-progress :percent="record.profitMargin" :stroke-color="getProfitMarginColor(record.profitMargin)" size="small" style="width: 100px" />
+              <a-progress
+                :percent="record.profitMargin"
+                :stroke-color="getProfitMarginColor(record.profitMargin)"
+                size="small"
+                style="width: 100px"
+              />
             </template>
           </template>
         </a-table>

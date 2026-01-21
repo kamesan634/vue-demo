@@ -117,10 +117,16 @@
           <!-- 毛利資訊 -->
           <a-form-item label="毛利資訊">
             <a-space>
-              <a-tag color="blue">
-                毛利: NT$ {{ grossProfit.toFixed(2) }}
-              </a-tag>
-              <a-tag :color="grossProfitMargin >= 30 ? 'success' : grossProfitMargin >= 15 ? 'warning' : 'error'">
+              <a-tag color="blue"> 毛利: NT$ {{ grossProfit.toFixed(2) }} </a-tag>
+              <a-tag
+                :color="
+                  grossProfitMargin >= 30
+                    ? 'success'
+                    : grossProfitMargin >= 15
+                      ? 'warning'
+                      : 'error'
+                "
+              >
                 毛利率: {{ grossProfitMargin.toFixed(1) }}%
               </a-tag>
             </a-space>
@@ -146,7 +152,11 @@
 
           <!-- 狀態 -->
           <a-form-item label="狀態" name="active">
-            <a-switch v-model:checked="formState.active" checked-children="啟用" un-checked-children="停用" />
+            <a-switch
+              v-model:checked="formState.active"
+              checked-children="啟用"
+              un-checked-children="停用"
+            />
           </a-form-item>
 
           <!-- 按鈕 -->

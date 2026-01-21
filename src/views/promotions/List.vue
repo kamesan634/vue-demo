@@ -13,7 +13,13 @@
     <div class="search-area">
       <a-form layout="inline" :model="searchForm">
         <a-form-item label="促銷類型">
-          <a-select v-model:value="searchForm.type" placeholder="全部" style="width: 140px" allow-clear @change="handleSearch">
+          <a-select
+            v-model:value="searchForm.type"
+            placeholder="全部"
+            style="width: 140px"
+            allow-clear
+            @change="handleSearch"
+          >
             <a-select-option value="DISCOUNT">折扣</a-select-option>
             <a-select-option value="BUY_X_GET_Y">買X送Y</a-select-option>
             <a-select-option value="BUNDLE">組合優惠</a-select-option>
@@ -21,7 +27,13 @@
           </a-select>
         </a-form-item>
         <a-form-item label="狀態">
-          <a-select v-model:value="searchForm.status" placeholder="全部" style="width: 100px" allow-clear @change="handleSearch">
+          <a-select
+            v-model:value="searchForm.status"
+            placeholder="全部"
+            style="width: 100px"
+            allow-clear
+            @change="handleSearch"
+          >
             <a-select-option value="ACTIVE">進行中</a-select-option>
             <a-select-option value="SCHEDULED">未開始</a-select-option>
             <a-select-option value="ENDED">已結束</a-select-option>
@@ -31,7 +43,14 @@
     </div>
 
     <div class="content-area">
-      <a-table :columns="columns" :data-source="promotions" :loading="loading" :pagination="pagination" row-key="id" @change="handleTableChange">
+      <a-table
+        :columns="columns"
+        :data-source="promotions"
+        :loading="loading"
+        :pagination="pagination"
+        row-key="id"
+        @change="handleTableChange"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'type'">
             <a-tag :color="getTypeColor(record.type)">{{ record.typeDescription }}</a-tag>

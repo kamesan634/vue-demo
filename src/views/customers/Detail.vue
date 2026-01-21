@@ -26,8 +26,12 @@
               <a-descriptions-item label="姓名">{{ customer?.name }}</a-descriptions-item>
               <a-descriptions-item label="電話">{{ customer?.phone }}</a-descriptions-item>
               <a-descriptions-item label="Email">{{ customer?.email || '-' }}</a-descriptions-item>
-              <a-descriptions-item label="性別">{{ customer?.genderDisplay || '-' }}</a-descriptions-item>
-              <a-descriptions-item label="生日">{{ customer?.birthday || '-' }}</a-descriptions-item>
+              <a-descriptions-item label="性別">{{
+                customer?.genderDisplay || '-'
+              }}</a-descriptions-item>
+              <a-descriptions-item label="生日">{{
+                customer?.birthday || '-'
+              }}</a-descriptions-item>
               <a-descriptions-item label="地址">{{ customer?.address || '-' }}</a-descriptions-item>
             </a-descriptions>
           </a-card>
@@ -41,9 +45,15 @@
                   {{ customer?.level?.name || '一般' }}
                 </a-tag>
               </a-descriptions-item>
-              <a-descriptions-item label="累計點數">{{ customer?.totalPoints?.toLocaleString() || 0 }} 點</a-descriptions-item>
-              <a-descriptions-item label="累計消費">NT$ {{ customer?.totalSpent?.toLocaleString() || 0 }}</a-descriptions-item>
-              <a-descriptions-item label="註冊日期">{{ customer?.registerDate }}</a-descriptions-item>
+              <a-descriptions-item label="累計點數"
+                >{{ customer?.totalPoints?.toLocaleString() || 0 }} 點</a-descriptions-item
+              >
+              <a-descriptions-item label="累計消費"
+                >NT$ {{ customer?.totalSpent?.toLocaleString() || 0 }}</a-descriptions-item
+              >
+              <a-descriptions-item label="註冊日期">{{
+                customer?.registerDate
+              }}</a-descriptions-item>
               <a-descriptions-item label="狀態">
                 <a-tag :color="customer?.active ? 'success' : 'default'">
                   {{ customer?.active ? '啟用' : '停用' }}
@@ -69,7 +79,11 @@
     </a-spin>
 
     <!-- 點數操作彈窗 -->
-    <a-modal v-model:open="pointsModalVisible" :title="pointsAction === 'add' ? '新增點數' : '扣除點數'" @ok="handlePointsSubmit">
+    <a-modal
+      v-model:open="pointsModalVisible"
+      :title="pointsAction === 'add' ? '新增點數' : '扣除點數'"
+      @ok="handlePointsSubmit"
+    >
       <a-form :label-col="{ span: 6 }" :wrapper-col="{ span: 16 }">
         <a-form-item label="點數數量">
           <a-input-number v-model:value="pointsForm.points" :min="1" style="width: 200px" />

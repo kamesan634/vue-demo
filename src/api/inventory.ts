@@ -88,9 +88,7 @@ export const getInventoryByWarehouse = (warehouseId: number): Promise<Inventory[
  * @param threshold - 安全庫存閾值
  * @returns 低庫存列表
  */
-export const getLowStockInventory = (
-  threshold: number
-): Promise<PaginatedResponse<Inventory>> => {
+export const getLowStockInventory = (threshold: number): Promise<PaginatedResponse<Inventory>> => {
   return get<PaginatedResponse<Inventory>>('/inventory/low-stock', { threshold })
 }
 
@@ -184,13 +182,8 @@ export const getMovementsByReference = (referenceNo: string): Promise<InventoryM
  * @param params - 查詢參數
  * @returns 異動記錄列表
  */
-export const searchMovements = (
-  params: InventoryMovementParams
-): Promise<InventoryMovement[]> => {
-  return get<InventoryMovement[]>(
-    '/inventory/movements/search',
-    params as Record<string, unknown>
-  )
+export const searchMovements = (params: InventoryMovementParams): Promise<InventoryMovement[]> => {
+  return get<InventoryMovement[]>('/inventory/movements/search', params as Record<string, unknown>)
 }
 
 /**

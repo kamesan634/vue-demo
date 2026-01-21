@@ -77,10 +77,7 @@ export const getDashboardSummary = (): Promise<DashboardSummary> => {
 export const getSalesReport = (
   params: Record<string, unknown>
 ): Promise<{ content: SalesReportItem[]; totalElements: number }> => {
-  return get<{ content: SalesReportItem[]; totalElements: number }>(
-    '/reports/sales',
-    params
-  )
+  return get<{ content: SalesReportItem[]; totalElements: number }>('/reports/sales', params)
 }
 
 /** 銷售報表項目 */
@@ -125,10 +122,7 @@ export interface ProfitAnalysisResponse {
 export const getProfitReport = (
   params: Record<string, unknown>
 ): Promise<ProfitAnalysisResponse> => {
-  return get<ProfitAnalysisResponse>(
-    '/reports/profit-analysis',
-    params
-  )
+  return get<ProfitAnalysisResponse>('/reports/profit-analysis', params)
 }
 
 /** 利潤報表項目 */

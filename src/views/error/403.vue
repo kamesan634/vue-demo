@@ -11,12 +11,8 @@
       <h2 class="error-title">存取被拒絕</h2>
       <p class="error-description">抱歉，您沒有權限訪問此頁面。請聯繫系統管理員。</p>
       <div class="error-actions">
-        <a-button type="primary" size="large" @click="goHome">
-          <HomeOutlined /> 返回首頁
-        </a-button>
-        <a-button size="large" @click="goBack">
-          <ArrowLeftOutlined /> 返回上一頁
-        </a-button>
+        <a-button type="primary" size="large" @click="goHome"> <HomeOutlined /> 返回首頁 </a-button>
+        <a-button size="large" @click="goBack"> <ArrowLeftOutlined /> 返回上一頁 </a-button>
       </div>
     </div>
   </div>

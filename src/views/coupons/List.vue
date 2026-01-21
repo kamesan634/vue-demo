@@ -13,16 +13,34 @@
     <div class="search-area">
       <a-form layout="inline" :model="searchForm">
         <a-form-item label="優惠券代碼">
-          <a-input v-model:value="searchForm.code" placeholder="輸入代碼" allow-clear style="width: 150px" @press-enter="handleSearch" />
+          <a-input
+            v-model:value="searchForm.code"
+            placeholder="輸入代碼"
+            allow-clear
+            style="width: 150px"
+            @press-enter="handleSearch"
+          />
         </a-form-item>
         <a-form-item label="優惠類型">
-          <a-select v-model:value="searchForm.discountType" placeholder="全部" style="width: 120px" allow-clear @change="handleSearch">
+          <a-select
+            v-model:value="searchForm.discountType"
+            placeholder="全部"
+            style="width: 120px"
+            allow-clear
+            @change="handleSearch"
+          >
             <a-select-option value="PERCENTAGE">百分比</a-select-option>
             <a-select-option value="FIXED">固定金額</a-select-option>
           </a-select>
         </a-form-item>
         <a-form-item label="狀態">
-          <a-select v-model:value="searchForm.status" placeholder="全部" style="width: 100px" allow-clear @change="handleSearch">
+          <a-select
+            v-model:value="searchForm.status"
+            placeholder="全部"
+            style="width: 100px"
+            allow-clear
+            @change="handleSearch"
+          >
             <a-select-option value="ACTIVE">有效</a-select-option>
             <a-select-option value="EXPIRED">已過期</a-select-option>
             <a-select-option value="USED_UP">已用完</a-select-option>
@@ -35,7 +53,14 @@
     </div>
 
     <div class="content-area">
-      <a-table :columns="columns" :data-source="coupons" :loading="loading" :pagination="pagination" row-key="id" @change="handleTableChange">
+      <a-table
+        :columns="columns"
+        :data-source="coupons"
+        :loading="loading"
+        :pagination="pagination"
+        row-key="id"
+        @change="handleTableChange"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'code'">
             <a-typography-text copyable :content="record.code">{{ record.code }}</a-typography-text>
@@ -46,7 +71,13 @@
           </template>
           <template v-else-if="column.key === 'usage'">
             <template v-if="record.maxUses">
-              <a-progress :percent="getUsagePercent(record)" :stroke-color="getUsagePercent(record) >= 90 ? '#ff4d4f' : '#1890ff'" size="small" :show-info="false" style="width: 80px" />
+              <a-progress
+                :percent="getUsagePercent(record)"
+                :stroke-color="getUsagePercent(record) >= 90 ? '#ff4d4f' : '#1890ff'"
+                size="small"
+                :show-info="false"
+                style="width: 80px"
+              />
               <span class="ml-8">{{ record.usedCount }}/{{ record.maxUses }}</span>
             </template>
             <template v-else>
@@ -74,8 +105,20 @@
     </div>
 
     <!-- 使用記錄 Modal -->
-    <a-modal v-model:open="usageModalVisible" :title="`優惠券使用記錄 - ${selectedCoupon?.code}`" :footer="null" width="700px">
-      <a-table :columns="usageColumns" :data-source="usageRecords" :loading="usageLoading" :pagination="false" row-key="id" size="small" />
+    <a-modal
+      v-model:open="usageModalVisible"
+      :title="`優惠券使用記錄 - ${selectedCoupon?.code}`"
+      :footer="null"
+      width="700px"
+    >
+      <a-table
+        :columns="usageColumns"
+        :data-source="usageRecords"
+        :loading="usageLoading"
+        :pagination="false"
+        row-key="id"
+        size="small"
+      />
     </a-modal>
   </div>
 </template>

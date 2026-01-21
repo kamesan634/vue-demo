@@ -42,7 +42,9 @@
 
         <!-- 分類詳情/表單 -->
         <a-col :xs="24" :md="14">
-          <a-card :title="formMode === 'edit' ? '編輯分類' : formMode === 'add' ? '新增分類' : '分類詳情'">
+          <a-card
+            :title="formMode === 'edit' ? '編輯分類' : formMode === 'add' ? '新增分類' : '分類詳情'"
+          >
             <a-form
               v-if="formMode !== 'view'"
               ref="formRef"
@@ -76,7 +78,11 @@
 
               <!-- 描述 -->
               <a-form-item label="描述" name="description">
-                <a-textarea v-model:value="formState.description" placeholder="請輸入描述" :rows="3" />
+                <a-textarea
+                  v-model:value="formState.description"
+                  placeholder="請輸入描述"
+                  :rows="3"
+                />
               </a-form-item>
 
               <!-- 排序 -->
@@ -86,7 +92,11 @@
 
               <!-- 狀態 -->
               <a-form-item label="狀態" name="active">
-                <a-switch v-model:checked="formState.active" checked-children="啟用" un-checked-children="停用" />
+                <a-switch
+                  v-model:checked="formState.active"
+                  checked-children="啟用"
+                  un-checked-children="停用"
+                />
               </a-form-item>
 
               <!-- 按鈕 -->
@@ -103,10 +113,18 @@
             <!-- 詳情顯示 -->
             <template v-else>
               <a-descriptions v-if="selectedCategory" :column="1">
-                <a-descriptions-item label="分類代碼">{{ selectedCategory.code }}</a-descriptions-item>
-                <a-descriptions-item label="分類名稱">{{ selectedCategory.name }}</a-descriptions-item>
-                <a-descriptions-item label="描述">{{ selectedCategory.description || '-' }}</a-descriptions-item>
-                <a-descriptions-item label="排序">{{ selectedCategory.sortOrder }}</a-descriptions-item>
+                <a-descriptions-item label="分類代碼">{{
+                  selectedCategory.code
+                }}</a-descriptions-item>
+                <a-descriptions-item label="分類名稱">{{
+                  selectedCategory.name
+                }}</a-descriptions-item>
+                <a-descriptions-item label="描述">{{
+                  selectedCategory.description || '-'
+                }}</a-descriptions-item>
+                <a-descriptions-item label="排序">{{
+                  selectedCategory.sortOrder
+                }}</a-descriptions-item>
                 <a-descriptions-item label="狀態">
                   <a-tag :color="selectedCategory.active ? 'success' : 'default'">
                     {{ selectedCategory.active ? '啟用' : '停用' }}

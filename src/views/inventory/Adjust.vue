@@ -8,12 +8,33 @@
     </div>
 
     <div class="content-area">
-      <a-form ref="formRef" :model="formState" :rules="rules" :label-col="{ span: 6 }" :wrapper-col="{ span: 14 }" class="form-container" @finish="handleSubmit">
+      <a-form
+        ref="formRef"
+        :model="formState"
+        :rules="rules"
+        :label-col="{ span: 6 }"
+        :wrapper-col="{ span: 14 }"
+        class="form-container"
+        @finish="handleSubmit"
+      >
         <a-form-item label="倉庫/門市" name="warehouseId">
-          <a-select v-model:value="formState.warehouseId" placeholder="請選擇倉庫/門市" :options="warehouses" :field-names="{ label: 'name', value: 'id' }" />
+          <a-select
+            v-model:value="formState.warehouseId"
+            placeholder="請選擇倉庫/門市"
+            :options="warehouses"
+            :field-names="{ label: 'name', value: 'id' }"
+          />
         </a-form-item>
         <a-form-item label="商品" name="productId">
-          <a-select v-model:value="formState.productId" placeholder="請選擇商品" :options="products" :field-names="{ label: 'name', value: 'id' }" show-search option-filter-prop="label" @change="handleProductChange" />
+          <a-select
+            v-model:value="formState.productId"
+            placeholder="請選擇商品"
+            :options="products"
+            :field-names="{ label: 'name', value: 'id' }"
+            show-search
+            option-filter-prop="label"
+            @change="handleProductChange"
+          />
         </a-form-item>
         <a-form-item label="目前庫存">
           <a-input-number :value="currentStock" disabled style="width: 150px" />
@@ -25,7 +46,12 @@
           </a-radio-group>
         </a-form-item>
         <a-form-item label="調整數量" name="quantity">
-          <a-input-number v-model:value="formState.quantity" :min="1" placeholder="請輸入數量" style="width: 150px" />
+          <a-input-number
+            v-model:value="formState.quantity"
+            :min="1"
+            placeholder="請輸入數量"
+            style="width: 150px"
+          />
         </a-form-item>
         <a-form-item label="調整後庫存">
           <a-input-number :value="adjustedStock" disabled style="width: 150px" />
@@ -97,7 +123,10 @@ const adjustedStock = computed(() => {
 // 載入基礎資料
 const loadBaseData = async (): Promise<void> => {
   try {
-    const [warehousesData, productsData] = await Promise.all([getActiveStores(), getProducts({ size: 1000 })])
+    const [warehousesData, productsData] = await Promise.all([
+      getActiveStores(),
+      getProducts({ size: 1000 }),
+    ])
     warehouses.value = warehousesData
     products.value = productsData.content
   } catch (error) {

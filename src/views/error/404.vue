@@ -11,12 +11,8 @@
       <h2 class="error-title">頁面不存在</h2>
       <p class="error-description">抱歉，您訪問的頁面不存在或已被移除。</p>
       <div class="error-actions">
-        <a-button type="primary" size="large" @click="goHome">
-          <HomeOutlined /> 返回首頁
-        </a-button>
-        <a-button size="large" @click="goBack">
-          <ArrowLeftOutlined /> 返回上一頁
-        </a-button>
+        <a-button type="primary" size="large" @click="goHome"> <HomeOutlined /> 返回首頁 </a-button>
+        <a-button size="large" @click="goBack"> <ArrowLeftOutlined /> 返回上一頁 </a-button>
       </div>
     </div>
   </div>

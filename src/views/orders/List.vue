@@ -16,10 +16,20 @@
     <div class="search-area">
       <a-form layout="inline" :model="searchForm" @finish="handleSearch">
         <a-form-item label="訂單編號">
-          <a-input v-model:value="searchForm.orderNoKeyword" placeholder="訂單編號" allow-clear style="width: 150px" />
+          <a-input
+            v-model:value="searchForm.orderNoKeyword"
+            placeholder="訂單編號"
+            allow-clear
+            style="width: 150px"
+          />
         </a-form-item>
         <a-form-item label="狀態">
-          <a-select v-model:value="searchForm.status" placeholder="請選擇" style="width: 120px" allow-clear>
+          <a-select
+            v-model:value="searchForm.status"
+            placeholder="請選擇"
+            style="width: 120px"
+            allow-clear
+          >
             <a-select-option value="PENDING">待處理</a-select-option>
             <a-select-option value="PAID">已付款</a-select-option>
             <a-select-option value="CANCELLED">已取消</a-select-option>
@@ -39,7 +49,14 @@
     </div>
 
     <div class="content-area">
-      <a-table :columns="columns" :data-source="orders" :loading="loading" :pagination="pagination" row-key="id" @change="handleTableChange">
+      <a-table
+        :columns="columns"
+        :data-source="orders"
+        :loading="loading"
+        :pagination="pagination"
+        row-key="id"
+        @change="handleTableChange"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'orderNo'">
             <a-typography-text copyable>{{ record.orderNo }}</a-typography-text>
@@ -53,7 +70,11 @@
           <template v-else-if="column.key === 'actions'">
             <div class="table-actions">
               <a-button type="link" size="small" @click="goToDetail(record.id)">詳情</a-button>
-              <a-popconfirm v-if="record.status === 'PENDING'" title="確定要取消此訂單嗎？" @confirm="handleCancel(record.id)">
+              <a-popconfirm
+                v-if="record.status === 'PENDING'"
+                title="確定要取消此訂單嗎？"
+                @confirm="handleCancel(record.id)"
+              >
                 <a-button type="link" size="small" danger>取消</a-button>
               </a-popconfirm>
             </div>

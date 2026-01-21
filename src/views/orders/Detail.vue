@@ -23,7 +23,9 @@
                 <a-tag :color="getStatusColor(order?.status)">{{ order?.statusDescription }}</a-tag>
               </a-descriptions-item>
               <a-descriptions-item label="門市">{{ order?.storeName }}</a-descriptions-item>
-              <a-descriptions-item label="客戶">{{ order?.customerName || '非會員' }}</a-descriptions-item>
+              <a-descriptions-item label="客戶">{{
+                order?.customerName || '非會員'
+              }}</a-descriptions-item>
               <a-descriptions-item label="訂單日期">{{ order?.orderDate }}</a-descriptions-item>
               <a-descriptions-item label="訂單時間">{{ order?.orderTime }}</a-descriptions-item>
             </a-descriptions>
@@ -31,7 +33,12 @@
 
           <!-- 商品明細 -->
           <a-card title="商品明細" class="mb-16">
-            <a-table :columns="columns" :data-source="order?.items" :pagination="false" row-key="id">
+            <a-table
+              :columns="columns"
+              :data-source="order?.items"
+              :pagination="false"
+              row-key="id"
+            >
               <template #bodyCell="{ column, record }">
                 <template v-if="column.key === 'subtotal'">
                   NT$ {{ record.subtotal?.toLocaleString() }}
@@ -45,9 +52,15 @@
           <!-- 金額摘要 -->
           <a-card title="金額摘要" class="mb-16">
             <a-descriptions :column="1" :label-style="{ width: '100px' }">
-              <a-descriptions-item label="小計">NT$ {{ order?.subtotal?.toLocaleString() }}</a-descriptions-item>
-              <a-descriptions-item label="折扣">-NT$ {{ order?.discountAmount?.toLocaleString() }}</a-descriptions-item>
-              <a-descriptions-item label="稅額">NT$ {{ order?.taxAmount?.toLocaleString() }}</a-descriptions-item>
+              <a-descriptions-item label="小計"
+                >NT$ {{ order?.subtotal?.toLocaleString() }}</a-descriptions-item
+              >
+              <a-descriptions-item label="折扣"
+                >-NT$ {{ order?.discountAmount?.toLocaleString() }}</a-descriptions-item
+              >
+              <a-descriptions-item label="稅額"
+                >NT$ {{ order?.taxAmount?.toLocaleString() }}</a-descriptions-item
+              >
               <a-descriptions-item label="總計">
                 <span class="text-primary" style="font-size: 20px; font-weight: bold">
                   NT$ {{ order?.totalAmount?.toLocaleString() }}
@@ -59,9 +72,15 @@
           <!-- 付款資訊 -->
           <a-card title="付款資訊" class="mb-16">
             <a-descriptions :column="1">
-              <a-descriptions-item label="已付金額">NT$ {{ order?.paidAmount?.toLocaleString() }}</a-descriptions-item>
-              <a-descriptions-item label="找零">NT$ {{ order?.changeAmount?.toLocaleString() }}</a-descriptions-item>
-              <a-descriptions-item label="獲得點數">{{ order?.pointsEarned }} 點</a-descriptions-item>
+              <a-descriptions-item label="已付金額"
+                >NT$ {{ order?.paidAmount?.toLocaleString() }}</a-descriptions-item
+              >
+              <a-descriptions-item label="找零"
+                >NT$ {{ order?.changeAmount?.toLocaleString() }}</a-descriptions-item
+              >
+              <a-descriptions-item label="獲得點數"
+                >{{ order?.pointsEarned }} 點</a-descriptions-item
+              >
               <a-descriptions-item label="使用點數">{{ order?.pointsUsed }} 點</a-descriptions-item>
             </a-descriptions>
           </a-card>

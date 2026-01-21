@@ -10,9 +10,7 @@ import type { Promotion, PromotionRequest, PaginatedResponse, PaginationParams }
  * @param params - 分頁參數
  * @returns 分頁促銷活動列表
  */
-export const getPromotions = (
-  params?: PaginationParams
-): Promise<PaginatedResponse<Promotion>> => {
+export const getPromotions = (params?: PaginationParams): Promise<PaginatedResponse<Promotion>> => {
   return get<PaginatedResponse<Promotion>>('/promotions', params as Record<string, unknown>)
 }
 

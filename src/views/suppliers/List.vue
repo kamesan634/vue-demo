@@ -13,10 +13,22 @@
     <div class="search-area">
       <a-form layout="inline" :model="searchForm">
         <a-form-item label="關鍵字">
-          <a-input v-model:value="searchForm.keyword" placeholder="名稱/代碼/聯絡人" allow-clear style="width: 200px" @press-enter="handleSearch" />
+          <a-input
+            v-model:value="searchForm.keyword"
+            placeholder="名稱/代碼/聯絡人"
+            allow-clear
+            style="width: 200px"
+            @press-enter="handleSearch"
+          />
         </a-form-item>
         <a-form-item label="狀態">
-          <a-select v-model:value="searchForm.active" placeholder="全部" style="width: 100px" allow-clear @change="handleSearch">
+          <a-select
+            v-model:value="searchForm.active"
+            placeholder="全部"
+            style="width: 100px"
+            allow-clear
+            @change="handleSearch"
+          >
             <a-select-option :value="true">啟用</a-select-option>
             <a-select-option :value="false">停用</a-select-option>
           </a-select>
@@ -28,7 +40,14 @@
     </div>
 
     <div class="content-area">
-      <a-table :columns="columns" :data-source="suppliers" :loading="loading" :pagination="pagination" row-key="id" @change="handleTableChange">
+      <a-table
+        :columns="columns"
+        :data-source="suppliers"
+        :loading="loading"
+        :pagination="pagination"
+        row-key="id"
+        @change="handleTableChange"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'contact'">
             <div>{{ record.contactPerson }}</div>
@@ -38,7 +57,9 @@
             <a-tag>{{ record.paymentTerms || '-' }}</a-tag>
           </template>
           <template v-else-if="column.key === 'active'">
-            <a-tag :color="record.isActive ? 'success' : 'default'">{{ record.isActive ? '啟用' : '停用' }}</a-tag>
+            <a-tag :color="record.isActive ? 'success' : 'default'">{{
+              record.isActive ? '啟用' : '停用'
+            }}</a-tag>
           </template>
           <template v-else-if="column.key === 'actions'">
             <div class="table-actions">

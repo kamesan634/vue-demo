@@ -72,13 +72,21 @@
         :wrapper-col="{ span: 16 }"
       >
         <a-form-item label="單位代碼" name="code">
-          <a-input v-model:value="formState.code" placeholder="請輸入單位代碼" :disabled="!!editingUnit" />
+          <a-input
+            v-model:value="formState.code"
+            placeholder="請輸入單位代碼"
+            :disabled="!!editingUnit"
+          />
         </a-form-item>
         <a-form-item label="單位名稱" name="name">
           <a-input v-model:value="formState.name" placeholder="請輸入單位名稱" />
         </a-form-item>
         <a-form-item label="狀態" name="active">
-          <a-switch v-model:checked="formState.active" checked-children="啟用" un-checked-children="停用" />
+          <a-switch
+            v-model:checked="formState.active"
+            checked-children="啟用"
+            un-checked-children="停用"
+          />
         </a-form-item>
       </a-form>
     </a-modal>
@@ -155,7 +163,10 @@ const rules: Record<string, Rule[]> = {
 const loadUnits = async (): Promise<void> => {
   loading.value = true
   try {
-    const response = await getUnits({ page: (pagination.current || 1) - 1, size: pagination.pageSize }) // Spring Data 分頁從 0 開始
+    const response = await getUnits({
+      page: (pagination.current || 1) - 1,
+      size: pagination.pageSize,
+    }) // Spring Data 分頁從 0 開始
     units.value = response.content
     pagination.total = response.totalElements
   } catch (error) {

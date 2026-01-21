@@ -56,13 +56,7 @@
 
         <!-- 提交按鈕 -->
         <a-form-item>
-          <a-button
-            type="primary"
-            html-type="submit"
-            size="large"
-            block
-            :loading="loading"
-          >
+          <a-button type="primary" html-type="submit" size="large" block :loading="loading">
             確認修改
           </a-button>
         </a-form-item>
@@ -143,9 +137,7 @@ const validateNewPassword = async (_rule: Rule, value: string): Promise<void> =>
 }
 
 const rules: Record<string, Rule[]> = {
-  currentPassword: [
-    { required: true, message: '請輸入目前密碼', trigger: 'blur' },
-  ],
+  currentPassword: [{ required: true, message: '請輸入目前密碼', trigger: 'blur' }],
   newPassword: [
     { required: true, message: '請輸入新密碼', trigger: 'blur' },
     { min: 8, max: 100, message: '密碼長度必須在 8-100 個字元之間', trigger: 'blur' },
@@ -175,11 +167,7 @@ const handleSubmit = async (): Promise<void> => {
       return
     }
 
-    await changePassword(
-      userId,
-      formState.currentPassword,
-      formState.newPassword
-    )
+    await changePassword(userId, formState.currentPassword, formState.newPassword)
 
     message.success('密碼修改成功，請重新登入')
 

@@ -379,9 +379,7 @@ const updateMenuState = (): void => {
     selectedKeys.value = [path === '/reports/profit' ? 'reports-profit' : 'reports-sales']
     openKeys.value = ['reports']
   } else if (path.startsWith('/system')) {
-    selectedKeys.value = [
-      path === '/system/audit-logs' ? 'system-audit-logs' : 'system-parameters',
-    ]
+    selectedKeys.value = [path === '/system/audit-logs' ? 'system-audit-logs' : 'system-parameters']
     openKeys.value = ['system']
   }
 }

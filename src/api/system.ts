@@ -3,12 +3,7 @@
  * 處理系統參數設定和稽核日誌
  */
 import { get, put } from '@/utils/request'
-import type {
-  SystemParameter,
-  AuditLog,
-  AuditLogQueryParams,
-  PaginatedResponse,
-} from '@/types'
+import type { SystemParameter, AuditLog, AuditLogQueryParams, PaginatedResponse } from '@/types'
 
 /**
  * 取得系統參數
@@ -38,9 +33,7 @@ export const updateSystemParameter = (
  * @param params - 系統參數物件
  * @returns 更新結果
  */
-export const updateSystemParameters = (
-  params: Record<string, unknown>
-): Promise<void> => {
+export const updateSystemParameters = (params: Record<string, unknown>): Promise<void> => {
   return put<void>('/system-parameters', params)
 }
 

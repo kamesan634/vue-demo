@@ -12,7 +12,15 @@
 
     <div class="content-area">
       <a-spin :spinning="loading">
-        <a-form ref="formRef" :model="formState" :rules="rules" :label-col="{ span: 6 }" :wrapper-col="{ span: 14 }" class="form-container" @finish="handleSubmit">
+        <a-form
+          ref="formRef"
+          :model="formState"
+          :rules="rules"
+          :label-col="{ span: 6 }"
+          :wrapper-col="{ span: 14 }"
+          class="form-container"
+          @finish="handleSubmit"
+        >
           <a-form-item label="代碼" name="code">
             <a-input v-model:value="formState.code" placeholder="請輸入代碼" :disabled="isEdit" />
           </a-form-item>
@@ -44,7 +52,11 @@
             <a-switch v-model:checked="formState.main" />
           </a-form-item>
           <a-form-item label="狀態" name="active">
-            <a-switch v-model:checked="formState.active" checked-children="啟用" un-checked-children="停用" />
+            <a-switch
+              v-model:checked="formState.active"
+              checked-children="啟用"
+              un-checked-children="停用"
+            />
           </a-form-item>
           <a-form-item label="備註" name="notes">
             <a-textarea v-model:value="formState.notes" :rows="3" />
@@ -52,7 +64,9 @@
 
           <div class="form-actions">
             <a-button @click="goBack">取消</a-button>
-            <a-button type="primary" html-type="submit" :loading="submitting">{{ isEdit ? '更新' : '新增' }}</a-button>
+            <a-button type="primary" html-type="submit" :loading="submitting">{{
+              isEdit ? '更新' : '新增'
+            }}</a-button>
           </div>
         </a-form>
       </a-spin>

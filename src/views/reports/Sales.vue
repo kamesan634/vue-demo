@@ -13,10 +13,22 @@
     <div class="search-area">
       <a-form layout="inline" :model="searchForm">
         <a-form-item label="日期區間">
-          <a-range-picker v-model:value="searchForm.dateRange" format="YYYY-MM-DD" @change="handleSearch" />
+          <a-range-picker
+            v-model:value="searchForm.dateRange"
+            format="YYYY-MM-DD"
+            @change="handleSearch"
+          />
         </a-form-item>
         <a-form-item label="門市">
-          <a-select v-model:value="searchForm.storeId" placeholder="全部" style="width: 150px" allow-clear :options="stores" :field-names="{ label: 'name', value: 'id' }" @change="handleSearch" />
+          <a-select
+            v-model:value="searchForm.storeId"
+            placeholder="全部"
+            style="width: 150px"
+            allow-clear
+            :options="stores"
+            :field-names="{ label: 'name', value: 'id' }"
+            @change="handleSearch"
+          />
         </a-form-item>
         <a-form-item label="報表類型">
           <a-select v-model:value="searchForm.groupBy" style="width: 120px" @change="handleSearch">
@@ -33,22 +45,42 @@
       <a-row :gutter="16" class="mb-16">
         <a-col :xs="12" :md="6">
           <a-card>
-            <a-statistic title="總銷售額" :value="summary.totalSales" prefix="NT$" :precision="0" :value-style="{ color: '#3f8600' }" />
+            <a-statistic
+              title="總銷售額"
+              :value="summary.totalSales"
+              prefix="NT$"
+              :precision="0"
+              :value-style="{ color: '#3f8600' }"
+            />
           </a-card>
         </a-col>
         <a-col :xs="12" :md="6">
           <a-card>
-            <a-statistic title="訂單數" :value="summary.totalOrders" :value-style="{ color: '#1890ff' }" />
+            <a-statistic
+              title="訂單數"
+              :value="summary.totalOrders"
+              :value-style="{ color: '#1890ff' }"
+            />
           </a-card>
         </a-col>
         <a-col :xs="12" :md="6">
           <a-card>
-            <a-statistic title="平均客單價" :value="summary.avgOrderAmount" prefix="NT$" :precision="0" />
+            <a-statistic
+              title="平均客單價"
+              :value="summary.avgOrderAmount"
+              prefix="NT$"
+              :precision="0"
+            />
           </a-card>
         </a-col>
         <a-col :xs="12" :md="6">
           <a-card>
-            <a-statistic title="毛利率" :value="reportSummary.profitMargin || 0" suffix="%" :value-style="{ color: '#722ed1' }" />
+            <a-statistic
+              title="毛利率"
+              :value="reportSummary.profitMargin || 0"
+              suffix="%"
+              :value-style="{ color: '#722ed1' }"
+            />
           </a-card>
         </a-col>
       </a-row>
@@ -60,7 +92,14 @@
 
       <!-- 銷售明細 -->
       <a-card title="銷售明細">
-        <a-table :columns="columns" :data-source="salesData" :loading="loading" :pagination="pagination" row-key="date" @change="handleTableChange">
+        <a-table
+          :columns="columns"
+          :data-source="salesData"
+          :loading="loading"
+          :pagination="pagination"
+          row-key="date"
+          @change="handleTableChange"
+        >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'sales'">
               NT$ {{ record.sales?.toLocaleString() }}

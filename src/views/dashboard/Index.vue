@@ -276,7 +276,8 @@ const salesChartOption = computed(() => ({
       const date = params[0].name
       let html = `<div style="font-weight:bold;margin-bottom:8px">${date}</div>`
       params.forEach((param) => {
-        const value = param.seriesName === '銷售額' ? `NT$ ${formatNumber(param.value)}` : param.value
+        const value =
+          param.seriesName === '銷售額' ? `NT$ ${formatNumber(param.value)}` : param.value
         html += `<div>${param.seriesName}: ${value}</div>`
       })
       return html

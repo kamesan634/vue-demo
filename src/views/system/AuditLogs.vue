@@ -13,7 +13,13 @@
     <div class="search-area">
       <a-form layout="inline" :model="searchForm">
         <a-form-item label="操作類型">
-          <a-select v-model:value="searchForm.action" placeholder="全部" style="width: 120px" allow-clear @change="handleSearch">
+          <a-select
+            v-model:value="searchForm.action"
+            placeholder="全部"
+            style="width: 120px"
+            allow-clear
+            @change="handleSearch"
+          >
             <a-select-option value="CREATE">新增</a-select-option>
             <a-select-option value="UPDATE">修改</a-select-option>
             <a-select-option value="DELETE">刪除</a-select-option>
@@ -22,7 +28,13 @@
           </a-select>
         </a-form-item>
         <a-form-item label="資源類型">
-          <a-select v-model:value="searchForm.entityType" placeholder="全部" style="width: 120px" allow-clear @change="handleSearch">
+          <a-select
+            v-model:value="searchForm.entityType"
+            placeholder="全部"
+            style="width: 120px"
+            allow-clear
+            @change="handleSearch"
+          >
             <a-select-option value="PRODUCT">商品</a-select-option>
             <a-select-option value="ORDER">訂單</a-select-option>
             <a-select-option value="CUSTOMER">客戶</a-select-option>
@@ -31,10 +43,20 @@
           </a-select>
         </a-form-item>
         <a-form-item label="操作人員">
-          <a-input v-model:value="searchForm.username" placeholder="輸入使用者名稱" allow-clear style="width: 150px" @press-enter="handleSearch" />
+          <a-input
+            v-model:value="searchForm.username"
+            placeholder="輸入使用者名稱"
+            allow-clear
+            style="width: 150px"
+            @press-enter="handleSearch"
+          />
         </a-form-item>
         <a-form-item label="日期區間">
-          <a-range-picker v-model:value="searchForm.dateRange" format="YYYY-MM-DD" @change="handleSearch" />
+          <a-range-picker
+            v-model:value="searchForm.dateRange"
+            format="YYYY-MM-DD"
+            @change="handleSearch"
+          />
         </a-form-item>
         <a-form-item>
           <a-button type="primary" @click="handleSearch"><SearchOutlined /> 搜尋</a-button>
@@ -43,7 +65,14 @@
     </div>
 
     <div class="content-area">
-      <a-table :columns="columns" :data-source="logs" :loading="loading" :pagination="pagination" row-key="id" @change="handleTableChange">
+      <a-table
+        :columns="columns"
+        :data-source="logs"
+        :loading="loading"
+        :pagination="pagination"
+        row-key="id"
+        @change="handleTableChange"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'action'">
             <a-tag :color="getActionColor(record.action)">{{ record.actionName }}</a-tag>
@@ -52,13 +81,20 @@
             <a-tag>{{ record.entityTypeName }}</a-tag>
           </template>
           <template v-else-if="column.key === 'changes'">
-            <a-button v-if="record.oldValue || record.newValue" type="link" size="small" @click="showChanges(record)">
+            <a-button
+              v-if="record.oldValue || record.newValue"
+              type="link"
+              size="small"
+              @click="showChanges(record)"
+            >
               查看變更
             </a-button>
             <span v-else class="text-secondary">-</span>
           </template>
           <template v-else-if="column.key === 'ipAddress'">
-            <a-typography-text copyable :content="record.ipAddress">{{ record.ipAddress }}</a-typography-text>
+            <a-typography-text copyable :content="record.ipAddress">{{
+              record.ipAddress
+            }}</a-typography-text>
           </template>
         </template>
       </a-table>

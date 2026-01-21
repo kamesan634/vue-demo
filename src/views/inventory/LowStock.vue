@@ -13,10 +13,24 @@
     <div class="search-area">
       <a-form layout="inline" :model="searchForm">
         <a-form-item label="低庫存閾值">
-          <a-input-number v-model:value="searchForm.threshold" :min="1" :max="1000" style="width: 100px" @change="handleSearch" />
+          <a-input-number
+            v-model:value="searchForm.threshold"
+            :min="1"
+            :max="1000"
+            style="width: 100px"
+            @change="handleSearch"
+          />
         </a-form-item>
         <a-form-item label="倉庫/門市">
-          <a-select v-model:value="searchForm.warehouseId" placeholder="全部" style="width: 150px" allow-clear :options="warehouses" :field-names="{ label: 'name', value: 'id' }" @change="handleSearch" />
+          <a-select
+            v-model:value="searchForm.warehouseId"
+            placeholder="全部"
+            style="width: 150px"
+            allow-clear
+            :options="warehouses"
+            :field-names="{ label: 'name', value: 'id' }"
+            @change="handleSearch"
+          />
         </a-form-item>
       </a-form>
     </div>
@@ -26,7 +40,11 @@
       <a-row :gutter="16" class="mb-16">
         <a-col :xs="12" :md="6">
           <a-card>
-            <a-statistic title="嚴重缺貨" :value="criticalCount" :value-style="{ color: '#cf1322' }">
+            <a-statistic
+              title="嚴重缺貨"
+              :value="criticalCount"
+              :value-style="{ color: '#cf1322' }"
+            >
               <template #suffix>項</template>
             </a-statistic>
           </a-card>
@@ -40,14 +58,22 @@
         </a-col>
         <a-col :xs="12" :md="6">
           <a-card>
-            <a-statistic title="零庫存商品" :value="zeroStockCount" :value-style="{ color: '#595959' }">
+            <a-statistic
+              title="零庫存商品"
+              :value="zeroStockCount"
+              :value-style="{ color: '#595959' }"
+            >
               <template #suffix>項</template>
             </a-statistic>
           </a-card>
         </a-col>
         <a-col :xs="12" :md="6">
           <a-card>
-            <a-statistic title="需補貨總數" :value="totalReorderQuantity" :value-style="{ color: '#1890ff' }">
+            <a-statistic
+              title="需補貨總數"
+              :value="totalReorderQuantity"
+              :value-style="{ color: '#1890ff' }"
+            >
               <template #suffix>件</template>
             </a-statistic>
           </a-card>
@@ -55,7 +81,14 @@
       </a-row>
 
       <!-- 低庫存列表 -->
-      <a-table :columns="columns" :data-source="lowStockItems" :loading="loading" :pagination="pagination" row-key="id" @change="handleTableChange">
+      <a-table
+        :columns="columns"
+        :data-source="lowStockItems"
+        :loading="loading"
+        :pagination="pagination"
+        row-key="id"
+        @change="handleTableChange"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'alertLevel'">
             <a-tag :color="record.quantity <= 10 ? 'error' : 'warning'">
@@ -63,7 +96,15 @@
             </a-tag>
           </template>
           <template v-else-if="column.key === 'quantity'">
-            <span :class="record.quantity === 0 ? 'zero-stock' : record.quantity <= 10 ? 'critical-stock' : 'warning-stock'">
+            <span
+              :class="
+                record.quantity === 0
+                  ? 'zero-stock'
+                  : record.quantity <= 10
+                    ? 'critical-stock'
+                    : 'warning-stock'
+              "
+            >
               {{ record.quantity }}
             </span>
           </template>
@@ -121,10 +162,21 @@ const columns = [
 ]
 
 // 統計數據
-const criticalCount = computed(() => lowStockItems.value.filter((item) => item.quantity <= 10).length)
-const warningCount = computed(() => lowStockItems.value.filter((item) => item.quantity > 10 && item.quantity <= 50).length)
-const zeroStockCount = computed(() => lowStockItems.value.filter((item) => item.quantity === 0).length)
-const totalReorderQuantity = computed(() => lowStockItems.value.reduce((sum, item) => sum + Math.max(0, (item.safetyStock || 50) - item.quantity), 0))
+const criticalCount = computed(
+  () => lowStockItems.value.filter((item) => item.quantity <= 10).length
+)
+const warningCount = computed(
+  () => lowStockItems.value.filter((item) => item.quantity > 10 && item.quantity <= 50).length
+)
+const zeroStockCount = computed(
+  () => lowStockItems.value.filter((item) => item.quantity === 0).length
+)
+const totalReorderQuantity = computed(() =>
+  lowStockItems.value.reduce(
+    (sum, item) => sum + Math.max(0, (item.safetyStock || 50) - item.quantity),
+    0
+  )
+)
 
 // 載入倉庫列表
 const loadWarehouses = async (): Promise<void> => {

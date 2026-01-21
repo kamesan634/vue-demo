@@ -50,13 +50,7 @@
 
         <!-- 登入按鈕 -->
         <a-form-item>
-          <a-button
-            type="primary"
-            html-type="submit"
-            size="large"
-            block
-            :loading="loading"
-          >
+          <a-button type="primary" html-type="submit" size="large" block :loading="loading">
             登入
           </a-button>
         </a-form-item>

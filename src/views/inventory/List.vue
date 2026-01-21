@@ -8,10 +8,25 @@
     </div>
 
     <div class="content-area">
-      <a-table :columns="columns" :data-source="inventory" :loading="loading" :pagination="pagination" row-key="id" @change="handleTableChange">
+      <a-table
+        :columns="columns"
+        :data-source="inventory"
+        :loading="loading"
+        :pagination="pagination"
+        row-key="id"
+        @change="handleTableChange"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'quantity'">
-            <a-tag :color="record.availableQuantity <= 10 ? 'error' : record.availableQuantity <= 50 ? 'warning' : 'success'">
+            <a-tag
+              :color="
+                record.availableQuantity <= 10
+                  ? 'error'
+                  : record.availableQuantity <= 50
+                    ? 'warning'
+                    : 'success'
+              "
+            >
               {{ record.quantity }}
             </a-tag>
           </template>
@@ -52,7 +67,10 @@ const columns = [
 const loadInventory = async (): Promise<void> => {
   loading.value = true
   try {
-    const response = await getAllInventory({ page: (pagination.current || 1) - 1, size: pagination.pageSize }) // Spring Data 分頁從 0 開始
+    const response = await getAllInventory({
+      page: (pagination.current || 1) - 1,
+      size: pagination.pageSize,
+    }) // Spring Data 分頁從 0 開始
     console.log('[Inventory API Response]', JSON.stringify(response, null, 2))
     inventory.value = response.content
     pagination.total = response.totalElements

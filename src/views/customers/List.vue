@@ -79,19 +79,10 @@
           <!-- 操作 -->
           <template v-else-if="column.key === 'actions'">
             <div class="table-actions">
-              <a-button type="link" size="small" @click="goToDetail(record.id)">
-                詳情
-              </a-button>
-              <a-button type="link" size="small" @click="goToEdit(record.id)">
-                編輯
-              </a-button>
-              <a-popconfirm
-                title="確定要刪除此客戶嗎？"
-                @confirm="handleDelete(record.id)"
-              >
-                <a-button type="link" size="small" danger>
-                  刪除
-                </a-button>
+              <a-button type="link" size="small" @click="goToDetail(record.id)"> 詳情 </a-button>
+              <a-button type="link" size="small" @click="goToEdit(record.id)"> 編輯 </a-button>
+              <a-popconfirm title="確定要刪除此客戶嗎？" @confirm="handleDelete(record.id)">
+                <a-button type="link" size="small" danger> 刪除 </a-button>
               </a-popconfirm>
             </div>
           </template>
@@ -140,7 +131,10 @@ const loadCustomers = async (): Promise<void> => {
     let response
     const pageParam = (pagination.current || 1) - 1 // Spring Data 分頁從 0 開始
     if (searchForm.keyword) {
-      response = await searchCustomers(searchForm.keyword, { page: pageParam, size: pagination.pageSize })
+      response = await searchCustomers(searchForm.keyword, {
+        page: pageParam,
+        size: pagination.pageSize,
+      })
     } else {
       response = await getCustomers({ page: pageParam, size: pagination.pageSize })
     }

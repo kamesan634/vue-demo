@@ -12,17 +12,34 @@
 
     <div class="content-area">
       <a-spin :spinning="loading">
-        <a-form ref="formRef" :model="formState" :rules="rules" :label-col="{ span: 6 }" :wrapper-col="{ span: 14 }" class="form-container" @finish="handleSubmit">
+        <a-form
+          ref="formRef"
+          :model="formState"
+          :rules="rules"
+          :label-col="{ span: 6 }"
+          :wrapper-col="{ span: 14 }"
+          class="form-container"
+          @finish="handleSubmit"
+        >
           <a-card title="基本資訊" class="mb-16">
             <a-form-item label="優惠券代碼" name="code">
-              <a-input v-model:value="formState.code" placeholder="請輸入優惠券代碼" :disabled="isEdit" style="width: 200px" />
+              <a-input
+                v-model:value="formState.code"
+                placeholder="請輸入優惠券代碼"
+                :disabled="isEdit"
+                style="width: 200px"
+              />
               <a-button v-if="!isEdit" type="link" @click="generateCode">自動產生</a-button>
             </a-form-item>
             <a-form-item label="名稱" name="name">
               <a-input v-model:value="formState.name" placeholder="請輸入優惠券名稱" />
             </a-form-item>
             <a-form-item label="描述" name="description">
-              <a-textarea v-model:value="formState.description" :rows="3" placeholder="請輸入優惠券描述" />
+              <a-textarea
+                v-model:value="formState.description"
+                :rows="3"
+                placeholder="請輸入優惠券描述"
+              />
             </a-form-item>
           </a-card>
 
@@ -34,15 +51,31 @@
               </a-radio-group>
             </a-form-item>
             <a-form-item label="折扣值" name="discountValue">
-              <a-input-number v-model:value="formState.discountValue" :min="0" :max="formState.discountType === 'PERCENTAGE' ? 100 : 999999" :precision="formState.discountType === 'PERCENTAGE' ? 0 : 2" style="width: 150px" />
+              <a-input-number
+                v-model:value="formState.discountValue"
+                :min="0"
+                :max="formState.discountType === 'PERCENTAGE' ? 100 : 999999"
+                :precision="formState.discountType === 'PERCENTAGE' ? 0 : 2"
+                style="width: 150px"
+              />
               <span class="ml-8">{{ formState.discountType === 'PERCENTAGE' ? '%' : '元' }}</span>
             </a-form-item>
             <a-form-item label="最低消費" name="minPurchaseAmount">
-              <a-input-number v-model:value="formState.minPurchaseAmount" :min="0" :precision="2" style="width: 150px" />
+              <a-input-number
+                v-model:value="formState.minPurchaseAmount"
+                :min="0"
+                :precision="2"
+                style="width: 150px"
+              />
               <span class="ml-8">元</span>
             </a-form-item>
             <a-form-item label="最高折抵" name="maxDiscountAmount">
-              <a-input-number v-model:value="formState.maxDiscountAmount" :min="0" :precision="2" style="width: 150px" />
+              <a-input-number
+                v-model:value="formState.maxDiscountAmount"
+                :min="0"
+                :precision="2"
+                style="width: 150px"
+              />
               <span class="ml-8">元（0 表示無上限）</span>
             </a-form-item>
           </a-card>
@@ -53,20 +86,46 @@
               <span class="ml-8">張</span>
             </a-form-item>
             <a-form-item label="每人限用" name="perCustomerLimit">
-              <a-input-number v-model:value="formState.perCustomerLimit" :min="0" style="width: 150px" />
+              <a-input-number
+                v-model:value="formState.perCustomerLimit"
+                :min="0"
+                style="width: 150px"
+              />
               <span class="ml-8">次（0 表示不限）</span>
             </a-form-item>
-            <a-form-item label="有效期間" name="dateRange" :rules="[{ required: true, message: '請選擇有效期間' }]">
-              <a-range-picker v-model:value="formState.dateRange" format="YYYY-MM-DD" value-format="YYYY-MM-DD" />
+            <a-form-item
+              label="有效期間"
+              name="dateRange"
+              :rules="[{ required: true, message: '請選擇有效期間' }]"
+            >
+              <a-range-picker
+                v-model:value="formState.dateRange"
+                format="YYYY-MM-DD"
+                value-format="YYYY-MM-DD"
+              />
             </a-form-item>
           </a-card>
 
           <a-card title="適用範圍" class="mb-16">
             <a-form-item label="適用門市" name="storeIds">
-              <a-select v-model:value="formState.storeIds" mode="multiple" placeholder="全部門市" :options="stores" :field-names="{ label: 'name', value: 'id' }" />
+              <a-select
+                v-model:value="formState.storeIds"
+                mode="multiple"
+                placeholder="全部門市"
+                :options="stores"
+                :field-names="{ label: 'name', value: 'id' }"
+              />
             </a-form-item>
             <a-form-item label="適用商品" name="productIds">
-              <a-select v-model:value="formState.productIds" mode="multiple" placeholder="全部商品" :options="products" :field-names="{ label: 'name', value: 'id' }" show-search option-filter-prop="label" />
+              <a-select
+                v-model:value="formState.productIds"
+                mode="multiple"
+                placeholder="全部商品"
+                :options="products"
+                :field-names="{ label: 'name', value: 'id' }"
+                show-search
+                option-filter-prop="label"
+              />
             </a-form-item>
           </a-card>
 
@@ -75,13 +134,19 @@
               <a-switch v-model:checked="formState.stackable" />
             </a-form-item>
             <a-form-item label="啟用狀態" name="active">
-              <a-switch v-model:checked="formState.active" checked-children="啟用" un-checked-children="停用" />
+              <a-switch
+                v-model:checked="formState.active"
+                checked-children="啟用"
+                un-checked-children="停用"
+              />
             </a-form-item>
           </a-card>
 
           <div class="form-actions">
             <a-button @click="goBack">取消</a-button>
-            <a-button type="primary" html-type="submit" :loading="submitting">{{ isEdit ? '更新' : '新增' }}</a-button>
+            <a-button type="primary" html-type="submit" :loading="submitting">{{
+              isEdit ? '更新' : '新增'
+            }}</a-button>
           </div>
         </a-form>
       </a-spin>
@@ -152,7 +217,10 @@ const generateCode = (): void => {
 // 載入基礎資料
 const loadBaseData = async (): Promise<void> => {
   try {
-    const [storesData, productsData] = await Promise.all([getActiveStores(), getProducts({ size: 1000 })])
+    const [storesData, productsData] = await Promise.all([
+      getActiveStores(),
+      getProducts({ size: 1000 }),
+    ])
     stores.value = storesData
     products.value = productsData.content
   } catch (error) {

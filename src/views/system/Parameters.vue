@@ -38,7 +38,13 @@
           <a-tab-pane key="sales" tab="銷售設定">
             <a-form :label-col="{ span: 6 }" :wrapper-col="{ span: 14 }" class="form-container">
               <a-form-item label="預設稅率">
-                <a-input-number v-model:value="params.defaultTaxRate" :min="0" :max="100" :precision="2" style="width: 150px" />
+                <a-input-number
+                  v-model:value="params.defaultTaxRate"
+                  :min="0"
+                  :max="100"
+                  :precision="2"
+                  style="width: 150px"
+                />
                 <span class="ml-8">%</span>
               </a-form-item>
               <a-form-item label="價格含稅">
@@ -51,7 +57,12 @@
                 </a-select>
               </a-form-item>
               <a-form-item label="小數點位數">
-                <a-input-number v-model:value="params.decimalPlaces" :min="0" :max="4" style="width: 150px" />
+                <a-input-number
+                  v-model:value="params.decimalPlaces"
+                  :min="0"
+                  :max="4"
+                  style="width: 150px"
+                />
               </a-form-item>
               <a-form-item label="四捨五入規則">
                 <a-select v-model:value="params.roundingRule" style="width: 200px">
@@ -67,23 +78,44 @@
           <a-tab-pane key="member" tab="會員設定">
             <a-form :label-col="{ span: 6 }" :wrapper-col="{ span: 14 }" class="form-container">
               <a-form-item label="點數兌換比例">
-                <a-input-number v-model:value="params.pointsPerDollar" :min="0" style="width: 150px" />
+                <a-input-number
+                  v-model:value="params.pointsPerDollar"
+                  :min="0"
+                  style="width: 150px"
+                />
                 <span class="ml-8">點 / 元</span>
               </a-form-item>
               <a-form-item label="點數使用比例">
-                <a-input-number v-model:value="params.pointsRedeemRate" :min="0" :precision="2" style="width: 150px" />
+                <a-input-number
+                  v-model:value="params.pointsRedeemRate"
+                  :min="0"
+                  :precision="2"
+                  style="width: 150px"
+                />
                 <span class="ml-8">元 / 點</span>
               </a-form-item>
               <a-form-item label="點數有效期限">
-                <a-input-number v-model:value="params.pointsExpiryDays" :min="0" style="width: 150px" />
+                <a-input-number
+                  v-model:value="params.pointsExpiryDays"
+                  :min="0"
+                  style="width: 150px"
+                />
                 <span class="ml-8">天（0 表示永久有效）</span>
               </a-form-item>
               <a-form-item label="新會員贈點">
-                <a-input-number v-model:value="params.newMemberPoints" :min="0" style="width: 150px" />
+                <a-input-number
+                  v-model:value="params.newMemberPoints"
+                  :min="0"
+                  style="width: 150px"
+                />
                 <span class="ml-8">點</span>
               </a-form-item>
               <a-form-item label="生日禮金">
-                <a-input-number v-model:value="params.birthdayBonus" :min="0" style="width: 150px" />
+                <a-input-number
+                  v-model:value="params.birthdayBonus"
+                  :min="0"
+                  style="width: 150px"
+                />
                 <span class="ml-8">元</span>
               </a-form-item>
             </a-form>
@@ -93,7 +125,11 @@
           <a-tab-pane key="inventory" tab="庫存設定">
             <a-form :label-col="{ span: 6 }" :wrapper-col="{ span: 14 }" class="form-container">
               <a-form-item label="低庫存警戒線">
-                <a-input-number v-model:value="params.lowStockThreshold" :min="0" style="width: 150px" />
+                <a-input-number
+                  v-model:value="params.lowStockThreshold"
+                  :min="0"
+                  style="width: 150px"
+                />
                 <span class="ml-8">件</span>
               </a-form-item>
               <a-form-item label="允許負庫存">
@@ -124,7 +160,10 @@
                 <a-switch v-model:checked="params.promotionExpiryReminder" />
               </a-form-item>
               <a-form-item label="通知信箱">
-                <a-input v-model:value="params.notificationEmail" placeholder="多個信箱以逗號分隔" />
+                <a-input
+                  v-model:value="params.notificationEmail"
+                  placeholder="多個信箱以逗號分隔"
+                />
               </a-form-item>
             </a-form>
           </a-tab-pane>

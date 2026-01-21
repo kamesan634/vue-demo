@@ -10,13 +10,37 @@
     <div class="search-area">
       <a-form layout="inline" :model="searchForm">
         <a-form-item label="倉庫/門市">
-          <a-select v-model:value="searchForm.warehouseId" placeholder="全部" style="width: 150px" allow-clear :options="warehouses" :field-names="{ label: 'name', value: 'id' }" @change="handleSearch" />
+          <a-select
+            v-model:value="searchForm.warehouseId"
+            placeholder="全部"
+            style="width: 150px"
+            allow-clear
+            :options="warehouses"
+            :field-names="{ label: 'name', value: 'id' }"
+            @change="handleSearch"
+          />
         </a-form-item>
         <a-form-item label="商品">
-          <a-select v-model:value="searchForm.productId" placeholder="全部" style="width: 200px" allow-clear show-search option-filter-prop="label" :options="products" :field-names="{ label: 'name', value: 'id' }" @change="handleSearch" />
+          <a-select
+            v-model:value="searchForm.productId"
+            placeholder="全部"
+            style="width: 200px"
+            allow-clear
+            show-search
+            option-filter-prop="label"
+            :options="products"
+            :field-names="{ label: 'name', value: 'id' }"
+            @change="handleSearch"
+          />
         </a-form-item>
         <a-form-item label="異動類型">
-          <a-select v-model:value="searchForm.movementType" placeholder="全部" style="width: 120px" allow-clear @change="handleSearch">
+          <a-select
+            v-model:value="searchForm.movementType"
+            placeholder="全部"
+            style="width: 120px"
+            allow-clear
+            @change="handleSearch"
+          >
             <a-select-option value="PURCHASE_IN">進貨入庫</a-select-option>
             <a-select-option value="SALES_OUT">銷售出庫</a-select-option>
             <a-select-option value="RETURN_IN">退貨入庫</a-select-option>
@@ -27,16 +51,29 @@
           </a-select>
         </a-form-item>
         <a-form-item label="日期區間">
-          <a-range-picker v-model:value="searchForm.dateRange" :allow-clear="false" @change="handleSearch" />
+          <a-range-picker
+            v-model:value="searchForm.dateRange"
+            :allow-clear="false"
+            @change="handleSearch"
+          />
         </a-form-item>
       </a-form>
     </div>
 
     <div class="content-area">
-      <a-table :columns="columns" :data-source="movements" :loading="loading" :pagination="pagination" row-key="id" @change="handleTableChange">
+      <a-table
+        :columns="columns"
+        :data-source="movements"
+        :loading="loading"
+        :pagination="pagination"
+        row-key="id"
+        @change="handleTableChange"
+      >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'movementType'">
-            <a-tag :color="getMovementTypeColor(record.movementType)">{{ record.movementTypeDescription }}</a-tag>
+            <a-tag :color="getMovementTypeColor(record.movementType)">{{
+              record.movementTypeDescription
+            }}</a-tag>
           </template>
           <template v-else-if="column.key === 'quantity'">
             <span :class="record.isInbound ? 'text-success' : 'text-danger'">
@@ -96,14 +133,14 @@ const columns = [
 // 取得異動類型顏色
 const getMovementTypeColor = (type: string): string => {
   const colors: Record<string, string> = {
-    PURCHASE_IN: 'success',    // 進貨入庫
-    RETURN_IN: 'success',      // 退貨入庫
+    PURCHASE_IN: 'success', // 進貨入庫
+    RETURN_IN: 'success', // 退貨入庫
     TRANSFER_IN: 'processing', // 調撥入庫
-    ADJUST_IN: 'warning',      // 盤盈
-    SALES_OUT: 'error',        // 銷售出庫
-    TRANSFER_OUT: 'processing',// 調撥出庫
-    ADJUST_OUT: 'warning',     // 盤虧
-    DAMAGE_OUT: 'error',       // 損耗出庫
+    ADJUST_IN: 'warning', // 盤盈
+    SALES_OUT: 'error', // 銷售出庫
+    TRANSFER_OUT: 'processing', // 調撥出庫
+    ADJUST_OUT: 'warning', // 盤虧
+    DAMAGE_OUT: 'error', // 損耗出庫
   }
   return colors[type] || 'default'
 }
@@ -111,7 +148,10 @@ const getMovementTypeColor = (type: string): string => {
 // 載入基礎資料
 const loadBaseData = async (): Promise<void> => {
   try {
-    const [warehousesData, productsData] = await Promise.all([getActiveStores(), getProducts({ size: 1000 })])
+    const [warehousesData, productsData] = await Promise.all([
+      getActiveStores(),
+      getProducts({ size: 1000 }),
+    ])
     warehouses.value = warehousesData
     products.value = productsData.content
   } catch (error) {
