@@ -1,0 +1,9 @@
+# 自動生成的檔案
+src/auto-imports.d.ts
+src/components.d.ts
+
+# 建置輸出
+dist/
+
+# 依賴
+node_modules/
