@@ -164,9 +164,15 @@ const handleTableChange = (pag: TablePaginationConfig): void => {
   loadCustomers()
 }
 
-const goToCreate = (): void => router.push('/customers/create')
-const goToDetail = (id: number): void => router.push(`/customers/${id}/detail`)
-const goToEdit = (id: number): void => router.push(`/customers/${id}/edit`)
+const goToCreate = () => {
+  router.push('/customers/create')
+}
+const goToDetail = (id: number) => {
+  router.push(`/customers/${id}/detail`)
+}
+const goToEdit = (id: number) => {
+  router.push(`/customers/${id}/edit`)
+}
 
 const handleDelete = async (id: number): Promise<void> => {
   try {

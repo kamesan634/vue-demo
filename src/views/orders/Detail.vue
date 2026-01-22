@@ -129,7 +129,9 @@ const loadOrder = async (): Promise<void> => {
   }
 }
 
-const goBack = (): void => router.push('/orders/list')
+const goBack = () => {
+  router.push('/orders/list')
+}
 
 const getStatusColor = (status?: OrderStatus): string => {
   if (!status) return 'default'

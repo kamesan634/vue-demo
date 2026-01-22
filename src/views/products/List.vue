@@ -162,9 +162,12 @@ const loading = ref(false)
 const products = ref<Product[]>([])
 
 /** 搜尋表單 */
-const searchForm = reactive({
+const searchForm = reactive<{
+  keyword: string
+  activeOnly: string | number | undefined
+}>({
   keyword: '',
-  activeOnly: undefined as boolean | undefined,
+  activeOnly: undefined,
 })
 
 /** 分頁設定 */
@@ -205,7 +208,7 @@ const loadProducts = async (): Promise<void> => {
     const params = {
       page: (pagination.current || 1) - 1, // Spring Data 分頁從 0 開始
       size: pagination.pageSize,
-      activeOnly: searchForm.activeOnly,
+      activeOnly: searchForm.activeOnly === undefined ? undefined : Boolean(searchForm.activeOnly),
     }
 
     let response

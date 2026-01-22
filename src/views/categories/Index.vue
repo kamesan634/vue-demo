@@ -170,7 +170,7 @@
  * 分類管理頁面組件
  * 顯示分類樹狀結構，支援 CRUD 操作
  */
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import type { Rule } from 'ant-design-vue/es/form'
 import type { FormInstance } from 'ant-design-vue'
@@ -194,8 +194,30 @@ const loading = ref(false)
 /** 提交中狀態 */
 const submitting = ref(false)
 
-/** 分類樹 */
-const categoryTree = ref<Category[]>([])
+/** 分類樹原始數據 */
+const categoryTreeData = ref<Category[]>([])
+
+/** 帶 key 的樹節點類型 */
+interface TreeNode {
+  id: number
+  key: number
+  name: string
+  active: boolean
+  children?: TreeNode[]
+  [key: string]: unknown
+}
+
+/** 帶 key 的分類樹（用於 Ant Design Vue Tree 組件） */
+const categoryTree = computed((): TreeNode[] => {
+  const addKey = (categories: Category[]): TreeNode[] => {
+    return categories.map((cat) => ({
+      ...cat,
+      key: cat.id,
+      children: cat.children ? addKey(cat.children) : undefined,
+    }))
+  }
+  return addKey(categoryTreeData.value)
+})
 
 /** 選中的分類 */
 const selectedCategory = ref<Category | null>(null)
@@ -241,7 +263,7 @@ const rules: Record<string, Rule[]> = {
 const loadCategoryTree = async (): Promise<void> => {
   loading.value = true
   try {
-    categoryTree.value = await getCategoryTree(true)
+    categoryTreeData.value = await getCategoryTree(true)
   } catch (error) {
     console.error('載入分類樹失敗:', error)
     message.error('載入分類樹失敗')
@@ -254,12 +276,12 @@ const loadCategoryTree = async (): Promise<void> => {
  * 處理選擇分類
  * @param selectedKeys - 選中的鍵值
  */
-const handleSelect = async (selectedKeys: number[]): Promise<void> => {
+const handleSelect = async (selectedKeys: (string | number)[]): Promise<void> => {
   if (selectedKeys.length === 0) return
 
   formMode.value = 'view'
   try {
-    selectedCategory.value = await getCategory(selectedKeys[0])
+    selectedCategory.value = await getCategory(Number(selectedKeys[0]))
   } catch (error) {
     console.error('載入分類詳情失敗:', error)
   }

@@ -5,30 +5,6 @@
 import { get } from '@/utils/request'
 import type { DashboardSummary, ProfitAnalysis, SalesReportParams } from '@/types'
 
-/** 銷售報表資料 */
-interface SalesReport {
-  /** 開始日期 */
-  startDate: string
-  /** 結束日期 */
-  endDate: string
-  /** 門市 ID */
-  storeId?: number
-  /** 門市名稱 */
-  storeName?: string
-  /** 總銷售額 */
-  totalSales: number
-  /** 總訂單數 */
-  totalOrders: number
-  /** 平均訂單金額 */
-  averageOrderValue: number
-  /** 每日銷售資料 */
-  dailySales: {
-    date: string
-    sales: number
-    orderCount: number
-  }[]
-}
-
 /** 年對年比較資料 */
 interface YearOverYearComparison {
   /** 年份 */
@@ -69,15 +45,31 @@ export const getDashboardSummary = (): Promise<DashboardSummary> => {
   return get<DashboardSummary>('/dashboard/summary')
 }
 
+/** 銷售報表回應類型 */
+export interface SalesReportResponse {
+  /** 每日銷售資料列表 */
+  dailySales?: SalesReportItem[]
+  /** 分頁內容 */
+  content?: SalesReportItem[]
+  /** 總筆數 */
+  totalElements?: number
+  /** 總銷售額 */
+  totalSales?: number
+  /** 訂單總數 */
+  orderCount?: number
+  /** 平均客單價 */
+  avgOrderAmount?: number
+  /** 利潤率 */
+  profitMargin?: number
+}
+
 /**
  * 取得銷售報表（分頁）
  * @param params - 查詢參數
  * @returns 銷售報表資料
  */
-export const getSalesReport = (
-  params: Record<string, unknown>
-): Promise<{ content: SalesReportItem[]; totalElements: number }> => {
-  return get<{ content: SalesReportItem[]; totalElements: number }>('/reports/sales', params)
+export const getSalesReport = (params: Record<string, unknown>): Promise<SalesReportResponse> => {
+  return get<SalesReportResponse>('/reports/sales', params)
 }
 
 /** 銷售報表項目 */
@@ -151,7 +143,10 @@ export interface CategoryProfit {
  * @returns 利潤分析資料
  */
 export const getProfitAnalysis = (params: SalesReportParams): Promise<ProfitAnalysis> => {
-  return get<ProfitAnalysis>('/reports/profit-analysis', params as Record<string, unknown>)
+  return get<ProfitAnalysis>(
+    '/reports/profit-analysis',
+    params as unknown as Record<string, unknown>
+  )
 }
 
 /**

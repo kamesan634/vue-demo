@@ -135,7 +135,8 @@ const loadBaseData = async (): Promise<void> => {
 }
 
 // 處理商品變更，載入當前庫存
-const handleProductChange = async (productId: number): Promise<void> => {
+const handleProductChange = async (value: unknown): Promise<void> => {
+  const productId = value as number
   if (!formState.warehouseId || !productId) {
     currentStock.value = 0
     return

@@ -88,7 +88,7 @@ const customerId = computed(() => Number(route.params.id))
 const loading = ref(false)
 const submitting = ref(false)
 const formRef = ref<FormInstance>()
-const birthdayValue = ref<Dayjs | null>(null)
+const birthdayValue = ref<Dayjs | undefined>(undefined)
 
 const formState = reactive<CustomerRequest>({
   name: '',
@@ -150,7 +150,9 @@ const handleSubmit = async (): Promise<void> => {
   }
 }
 
-const goBack = (): void => router.push('/customers/list')
+const goBack = () => {
+  router.push('/customers/list')
+}
 
 onMounted(() => loadCustomer())
 </script>

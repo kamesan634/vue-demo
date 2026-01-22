@@ -21,13 +21,13 @@ const request: AxiosInstance = axios.create({
 // 用於防止 Token 刷新期間重複刷新
 let isRefreshing = false
 // 等待 Token 刷新的請求隊列
-let refreshSubscribers: Array<(token: string) => void> = []
+let refreshSubscribers: Array<(_token: string) => void> = []
 
 /**
  * 將等待中的請求加入隊列
  * @param callback - 當 Token 刷新完成後執行的回調函數
  */
-const subscribeTokenRefresh = (callback: (token: string) => void): void => {
+const subscribeTokenRefresh = (callback: (_token: string) => void): void => {
   refreshSubscribers.push(callback)
 }
 

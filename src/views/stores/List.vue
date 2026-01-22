@@ -121,8 +121,12 @@ const handleTableChange = (pag: TablePaginationConfig): void => {
   loadStores()
 }
 
-const goToCreate = (): void => router.push('/stores/create')
-const goToEdit = (id: number): void => router.push(`/stores/${id}/edit`)
+const goToCreate = () => {
+  router.push('/stores/create')
+}
+const goToEdit = (id: number) => {
+  router.push(`/stores/${id}/edit`)
+}
 
 const handleDelete = async (id: number): Promise<void> => {
   try {

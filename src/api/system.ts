@@ -3,7 +3,7 @@
  * 處理系統參數設定和稽核日誌
  */
 import { get, put } from '@/utils/request'
-import type { SystemParameter, AuditLog, AuditLogQueryParams, PaginatedResponse } from '@/types'
+import type { AuditLog, AuditLogQueryParams, PaginatedResponse } from '@/types'
 
 /**
  * 取得系統參數

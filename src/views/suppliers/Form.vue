@@ -173,7 +173,9 @@ const handleSubmit = async (): Promise<void> => {
 }
 
 // 返回列表
-const goBack = (): void => router.push('/suppliers/list')
+const goBack = () => {
+  router.push('/suppliers/list')
+}
 
 onMounted(() => loadSupplier())
 </script>

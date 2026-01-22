@@ -126,8 +126,12 @@ const loadCustomer = async (): Promise<void> => {
   }
 }
 
-const goBack = (): void => router.push('/customers/list')
-const goToEdit = (): void => router.push(`/customers/${customerId}/edit`)
+const goBack = () => {
+  router.push('/customers/list')
+}
+const goToEdit = () => {
+  router.push(`/customers/${customerId}/edit`)
+}
 
 const showPointsModal = (action: 'add' | 'deduct'): void => {
   pointsAction.value = action

@@ -21,8 +21,8 @@
 
       <!-- 導航選單 -->
       <a-menu
-        v-model:selectedKeys="selectedKeys"
-        v-model:openKeys="openKeys"
+        v-model:selected-keys="selectedKeys"
+        v-model:open-keys="openKeys"
         mode="inline"
         theme="dark"
         :inline-collapsed="collapsed"
@@ -283,7 +283,7 @@ const toggleCollapsed = (): void => {
  * 處理選單點擊
  * @param info - 選單點擊資訊
  */
-const handleMenuClick = (info: { key: string }): void => {
+const handleMenuClick = (info: { key: string | number }): void => {
   // 根據選單 key 進行路由跳轉
   const routeMap: Record<string, string> = {
     dashboard: '/dashboard',

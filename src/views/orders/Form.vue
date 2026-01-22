@@ -69,7 +69,7 @@
                   show-search
                   option-filter-prop="label"
                   style="width: 200px"
-                  @change="(val: number) => handleProductChange(index, val)"
+                  @change="(val) => handleProductChange(index, val)"
                 />
               </template>
               <template v-else-if="column.key === 'quantity'">
@@ -204,7 +204,8 @@ const loadBaseData = async (): Promise<void> => {
   }
 }
 
-const handleProductChange = (index: number, productId: number): void => {
+const handleProductChange = (index: number, value: unknown): void => {
+  const productId = value as number
   const product = products.value.find((p) => p.id === productId)
   if (product) {
     formState.items[index].unitPrice = product.sellingPrice
@@ -251,7 +252,9 @@ const handleSubmit = async (): Promise<void> => {
   }
 }
 
-const goBack = (): void => router.push('/orders/list')
+const goBack = () => {
+  router.push('/orders/list')
+}
 
 onMounted(() => loadBaseData())
 </script>

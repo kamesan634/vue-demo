@@ -58,11 +58,13 @@ export default [
       '@typescript-eslint': pluginTypeScript,
     },
     rules: {
+      // 關閉基本規則，使用 TypeScript 版本
+      'no-unused-vars': 'off',
       // TypeScript 特定規則
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': [
         'error',
-        { argsIgnorePattern: '^_' },
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
     },
   },
@@ -81,9 +83,16 @@ export default [
       },
     },
     plugins: {
+      '@typescript-eslint': pluginTypeScript,
       prettier: pluginPrettier,
     },
     rules: {
+      // 關閉基本規則，使用 TypeScript 版本
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
       // Vue 特定規則
       'vue/multi-word-component-names': 'off', // 允許單字組件名稱
       'vue/no-v-html': 'off', // 允許使用 v-html

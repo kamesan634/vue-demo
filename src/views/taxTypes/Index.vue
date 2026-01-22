@@ -212,13 +212,13 @@ const handleAdd = (): void => {
   modalVisible.value = true
 }
 
-const handleEdit = (taxType: TaxType): void => {
-  editingTaxType.value = taxType
-  formState.code = taxType.code
-  formState.name = taxType.name
-  formState.rate = taxType.rate
-  formState.isDefault = taxType.isDefault
-  formState.active = taxType.active
+const handleEdit = (taxType: Record<string, unknown>): void => {
+  editingTaxType.value = taxType as unknown as TaxType
+  formState.code = taxType.code as string
+  formState.name = taxType.name as string
+  formState.rate = taxType.rate as number
+  formState.isDefault = taxType.isDefault as boolean
+  formState.active = taxType.active as boolean
   modalVisible.value = true
 }
 

@@ -176,13 +176,13 @@ const usageColumns = [
 ]
 
 // 計算使用率
-const getUsagePercent = (record: Coupon): number => {
+const getUsagePercent = (record: Record<string, unknown>): number => {
   if (!record.maxUses) return 0
-  return Math.round((record.usedCount / record.maxUses) * 100)
+  return Math.round(((record.usedCount as number) / (record.maxUses as number)) * 100)
 }
 
 // 取得狀態顏色
-const getStatusColor = (record: Coupon): string => {
+const getStatusColor = (record: Record<string, unknown>): string => {
   if (record.exhausted) return 'warning'
   if (record.expired) return 'default'
   if (record.valid) return 'success'
@@ -191,7 +191,7 @@ const getStatusColor = (record: Coupon): string => {
 }
 
 // 取得狀態文字
-const getStatusText = (record: Coupon): string => {
+const getStatusText = (record: Record<string, unknown>): string => {
   if (record.exhausted) return '已用完'
   if (record.expired) return '已過期'
   if (record.valid) return '有效'
@@ -239,16 +239,20 @@ const handleTableChange = (pag: TablePaginationConfig): void => {
 }
 
 // 頁面跳轉
-const goToCreate = (): void => router.push('/coupons/create')
-const goToEdit = (id: number): void => router.push(`/coupons/${id}/edit`)
+const goToCreate = () => {
+  router.push('/coupons/create')
+}
+const goToEdit = (id: number) => {
+  router.push(`/coupons/${id}/edit`)
+}
 
 // 查看使用記錄
-const viewUsage = async (coupon: Coupon): Promise<void> => {
-  selectedCoupon.value = coupon
+const viewUsage = async (coupon: Record<string, unknown>): Promise<void> => {
+  selectedCoupon.value = coupon as unknown as Coupon
   usageModalVisible.value = true
   usageLoading.value = true
   try {
-    usageRecords.value = await getCouponUsage(coupon.id)
+    usageRecords.value = await getCouponUsage(coupon.id as number)
   } catch (error) {
     console.error('載入使用記錄失敗:', error)
   } finally {

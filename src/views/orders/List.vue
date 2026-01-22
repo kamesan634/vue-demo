@@ -98,7 +98,7 @@ import type { Order, OrderStatus } from '@/types'
 const router = useRouter()
 const loading = ref(false)
 const orders = ref<Order[]>([])
-const dateRange = ref<[Dayjs, Dayjs] | null>(null)
+const dateRange = ref<[Dayjs, Dayjs] | undefined>(undefined)
 
 const searchForm = reactive({
   orderNoKeyword: '',
@@ -154,7 +154,7 @@ const handleSearch = (): void => {
 const resetSearch = (): void => {
   searchForm.orderNoKeyword = ''
   searchForm.status = undefined
-  dateRange.value = null
+  dateRange.value = undefined
   pagination.current = 1
   loadOrders()
 }
@@ -165,8 +165,12 @@ const handleTableChange = (pag: TablePaginationConfig): void => {
   loadOrders()
 }
 
-const goToCreate = (): void => router.push('/orders/create')
-const goToDetail = (id: number): void => router.push(`/orders/${id}/detail`)
+const goToCreate = () => {
+  router.push('/orders/create')
+}
+const goToDetail = (id: number) => {
+  router.push(`/orders/${id}/detail`)
+}
 
 const handleCancel = async (id: number): Promise<void> => {
   try {

@@ -221,8 +221,8 @@ const handleTableChange = (pag: TablePaginationConfig): void => {
 }
 
 // 顯示變更詳情
-const showChanges = (log: AuditLog): void => {
-  selectedLog.value = log
+const showChanges = (log: Record<string, unknown>): void => {
+  selectedLog.value = log as unknown as AuditLog
   changesModalVisible.value = true
 }
 

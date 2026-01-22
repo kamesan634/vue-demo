@@ -36,6 +36,8 @@ export interface PaginationParams {
   sortBy?: string
   /** 排序方向 */
   sortDir?: 'asc' | 'desc'
+  /** 允許額外查詢參數 */
+  [key: string]: unknown
 }
 
 /**
@@ -157,6 +159,8 @@ export interface ChangePasswordRequest {
 export interface Category {
   /** 分類 ID */
   id: number
+  /** 樹節點鍵值（用於 Ant Design Vue Tree 組件） */
+  key?: string | number
   /** 分類代碼 */
   code: string
   /** 分類名稱 */
@@ -734,12 +738,16 @@ export interface Inventory {
   reservedQuantity: number
   /** 可用數量 */
   availableQuantity: number
+  /** 安全庫存量 */
+  safetyStock?: number
   /** 最後異動日期 */
   lastMovementDate?: string
 }
 
 /** 庫存調整類型 */
 export type AdjustmentType =
+  | 'IN'
+  | 'OUT'
   | 'STOCK_IN'
   | 'STOCK_OUT'
   | 'ADJUSTMENT_IN'
@@ -765,6 +773,8 @@ export interface InventoryAdjustRequest {
   reason?: string
   /** 參考單號 */
   referenceNo?: string
+  /** 備註 */
+  notes?: string
 }
 
 /**
@@ -847,8 +857,14 @@ export interface SupplierRequest {
   name: string
   /** 聯絡人 */
   contactPerson?: string
+  /** 聯絡人姓名（別名） */
+  contactName?: string
   /** 電話 */
   phone?: string
+  /** 聯絡人電話 */
+  contactPhone?: string
+  /** 傳真 */
+  fax?: string
   /** Email */
   email?: string
   /** 地址 */
@@ -859,6 +875,10 @@ export interface SupplierRequest {
   paymentTerms?: string
   /** 銀行帳號 */
   bankAccount?: string
+  /** 銀行名稱 */
+  bankName?: string
+  /** 排序順序 */
+  sortOrder?: number
   /** 是否啟用 */
   active?: boolean
   /** 備註 */
@@ -871,6 +891,7 @@ export interface SupplierRequest {
 
 /** 促銷類型 */
 export type PromotionType =
+  | 'DISCOUNT'
   | 'PERCENTAGE_DISCOUNT'
   | 'FIXED_DISCOUNT'
   | 'BUY_X_GET_Y'
@@ -889,6 +910,8 @@ export interface Promotion {
   description?: string
   /** 促銷類型 */
   type: PromotionType
+  /** 促銷類型描述 */
+  typeDescription?: string
   /** 折扣值 */
   discountValue: number
   /** 開始日期 */
@@ -905,6 +928,12 @@ export interface Promotion {
   applicableCategories?: number[]
   /** 是否啟用 */
   active: boolean
+  /** 是否進行中 */
+  ongoing?: boolean
+  /** 是否即將開始 */
+  upcoming?: boolean
+  /** 是否已過期 */
+  expired?: boolean
   /** 建立時間 */
   createdAt?: string
   /** 更新時間 */
@@ -921,6 +950,8 @@ export interface PromotionRequest {
   description?: string
   /** 促銷類型 */
   type: PromotionType
+  /** 折扣類型（百分比或固定金額） */
+  discountType?: 'PERCENTAGE' | 'FIXED'
   /** 折扣值 */
   discountValue: number
   /** 開始日期 */
@@ -935,6 +966,14 @@ export interface PromotionRequest {
   applicableProducts?: number[]
   /** 適用分類 ID 列表 */
   applicableCategories?: number[]
+  /** 適用門市 ID 列表 */
+  storeIds?: number[]
+  /** 適用商品 ID 列表（別名） */
+  productIds?: number[]
+  /** 適用分類 ID 列表（別名） */
+  categoryIds?: number[]
+  /** 優先級 */
+  priority?: number
   /** 是否啟用 */
   active?: boolean
 }
@@ -966,6 +1005,8 @@ export interface Coupon {
   minPurchaseAmount?: number
   /** 最大使用次數 */
   maxUsageCount?: number
+  /** 最大使用次數（別名） */
+  maxUses?: number
   /** 每人最大使用次數 */
   maxUsagePerCustomer?: number
   /** 已使用次數 */
@@ -976,6 +1017,14 @@ export interface Coupon {
   endDate: string
   /** 是否啟用 */
   active: boolean
+  /** 是否已用完 */
+  exhausted?: boolean
+  /** 是否已過期 */
+  expired?: boolean
+  /** 是否有效 */
+  valid?: boolean
+  /** 是否即將開始 */
+  upcoming?: boolean
   /** 建立時間 */
   createdAt?: string
   /** 更新時間 */
@@ -998,10 +1047,22 @@ export interface CouponRequest {
   discountValue: number
   /** 最低消費金額 */
   minPurchaseAmount?: number
+  /** 最大折扣金額 */
+  maxDiscountAmount?: number
   /** 最大使用次數 */
   maxUsageCount?: number
+  /** 總數量（別名） */
+  totalCount?: number
   /** 每人最大使用次數 */
   maxUsagePerCustomer?: number
+  /** 每客戶限制（別名） */
+  perCustomerLimit?: number
+  /** 適用門市 ID 列表 */
+  storeIds?: number[]
+  /** 適用商品 ID 列表 */
+  productIds?: number[]
+  /** 是否可疊加 */
+  stackable?: boolean
   /** 開始日期 */
   startDate: string
   /** 結束日期 */
@@ -1147,6 +1208,26 @@ export interface SalesReportParams {
 }
 
 /**
+ * 銷售報表回應
+ */
+export interface SalesReportResponse {
+  /** 每日銷售資料列表 */
+  dailySales: SalesReportItem[]
+  /** 總銷售額 */
+  totalSales: number
+  /** 訂單總數 */
+  orderCount: number
+  /** 平均客單價 */
+  avgOrderAmount: number
+  /** 利潤率 */
+  profitMargin: number
+  /** 分頁內容（後端可能返回的另一種格式） */
+  content?: SalesReportItem[]
+  /** 總筆數 */
+  totalElements?: number
+}
+
+/**
  * 利潤分析資料
  */
 export interface ProfitAnalysis {
@@ -1264,6 +1345,8 @@ export interface SalesReportItem {
   orderCount: number
   /** 銷售額 */
   salesAmount: number
+  /** 銷售額（別名） */
+  sales?: number
   /** 銷量 */
   quantity: number
   /** 平均客單價 */

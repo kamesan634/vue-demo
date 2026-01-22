@@ -125,7 +125,7 @@ const getTypeColor = (type: string): string => {
 }
 
 // 取得狀態顏色
-const getStatusColor = (record: Promotion): string => {
+const getStatusColor = (record: Record<string, unknown>): string => {
   if (record.ongoing) return 'success'
   if (record.upcoming) return 'processing'
   if (record.expired) return 'default'
@@ -133,7 +133,7 @@ const getStatusColor = (record: Promotion): string => {
 }
 
 // 取得狀態文字
-const getStatusText = (record: Promotion): string => {
+const getStatusText = (record: Record<string, unknown>): string => {
   if (record.ongoing) return '進行中'
   if (record.upcoming) return '即將開始'
   if (record.expired) return '已結束'
@@ -179,8 +179,12 @@ const handleTableChange = (pag: TablePaginationConfig): void => {
 }
 
 // 頁面跳轉
-const goToCreate = (): void => router.push('/promotions/create')
-const goToEdit = (id: number): void => router.push(`/promotions/${id}/edit`)
+const goToCreate = () => {
+  router.push('/promotions/create')
+}
+const goToEdit = (id: number) => {
+  router.push(`/promotions/${id}/edit`)
+}
 
 // 處理刪除
 const handleDelete = async (id: number): Promise<void> => {

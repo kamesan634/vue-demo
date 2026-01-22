@@ -222,10 +222,10 @@ const handleTableChange = (pag: TablePaginationConfig): void => {
 }
 
 // 前往庫存調整
-const goToAdjust = (record: Inventory): void => {
+const goToAdjust = (record: Record<string, unknown>): void => {
   router.push({
     path: '/inventory/adjust',
-    query: { warehouseId: record.warehouseId, productId: record.productId },
+    query: { warehouseId: String(record.warehouseId), productId: String(record.productId) },
   })
 }
 

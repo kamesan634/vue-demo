@@ -190,11 +190,11 @@ const handleAdd = (): void => {
   modalVisible.value = true
 }
 
-const handleEdit = (unit: Unit): void => {
-  editingUnit.value = unit
-  formState.code = unit.code
-  formState.name = unit.name
-  formState.active = unit.active
+const handleEdit = (unit: Record<string, unknown>): void => {
+  editingUnit.value = unit as unknown as Unit
+  formState.code = unit.code as string
+  formState.name = unit.name as string
+  formState.active = unit.active as boolean
   modalVisible.value = true
 }
 

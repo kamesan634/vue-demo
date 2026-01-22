@@ -142,7 +142,9 @@ const handleSubmit = async (): Promise<void> => {
   }
 }
 
-const goBack = (): void => router.push('/stores/list')
+const goBack = () => {
+  router.push('/stores/list')
+}
 
 onMounted(() => loadStore())
 </script>

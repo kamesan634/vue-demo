@@ -20,10 +20,9 @@
  */
 import { computed } from 'vue'
 import zhTW from 'ant-design-vue/es/locale/zh_TW'
-import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context'
 
 // 主題配置
-const themeConfig = computed<ThemeConfig>(() => ({
+const themeConfig = computed(() => ({
   token: {
     // 主色調
     colorPrimary: '#1890ff',
@@ -37,17 +36,6 @@ const themeConfig = computed<ThemeConfig>(() => ({
     borderRadius: 6,
     // 字體大小
     fontSize: 14,
-  },
-  components: {
-    // 表格組件配置
-    Table: {
-      headerBg: '#fafafa',
-    },
-    // 佈局組件配置
-    Layout: {
-      headerBg: '#001529',
-      siderBg: '#001529',
-    },
   },
 }))
 </script>

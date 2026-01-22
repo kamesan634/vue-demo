@@ -9,7 +9,7 @@
 
     <div class="content-area">
       <a-spin :spinning="loading">
-        <a-tabs v-model:activeKey="activeTab">
+        <a-tabs v-model:active-key="activeTab">
           <!-- 基本設定 -->
           <a-tab-pane key="basic" tab="基本設定">
             <a-form :label-col="{ span: 6 }" :wrapper-col="{ span: 14 }" class="form-container">

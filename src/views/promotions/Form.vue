@@ -259,7 +259,9 @@ const handleSubmit = async (): Promise<void> => {
 }
 
 // 返回列表
-const goBack = (): void => router.push('/promotions/list')
+const goBack = () => {
+  router.push('/promotions/list')
+}
 
 onMounted(() => {
   loadBaseData()

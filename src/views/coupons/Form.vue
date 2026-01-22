@@ -177,7 +177,7 @@ const stores = ref<Store[]>([])
 const products = ref<Product[]>([])
 
 // 表單狀態
-const formState = reactive<CouponRequest & { dateRange?: [Dayjs | string, Dayjs | string] }>({
+const formState = reactive<CouponRequest & { dateRange?: [string, string] | [Dayjs, Dayjs] }>({
   code: '',
   name: '',
   description: '',
@@ -256,7 +256,7 @@ const handleSubmit = async (): Promise<void> => {
 
   submitting.value = true
   try {
-    const { dateRange, ...submitData } = formState
+    const { dateRange: _dateRange, ...submitData } = formState
     if (isEdit.value) {
       await updateCoupon(couponId.value, submitData)
       message.success('更新成功')
@@ -273,7 +273,9 @@ const handleSubmit = async (): Promise<void> => {
 }
 
 // 返回列表
-const goBack = (): void => router.push('/coupons/list')
+const goBack = () => {
+  router.push('/coupons/list')
+}
 
 onMounted(() => {
   loadBaseData()

@@ -89,9 +89,12 @@ const loading = ref(false)
 const suppliers = ref<Supplier[]>([])
 
 // 搜尋表單
-const searchForm = reactive({
+const searchForm = reactive<{
+  keyword: string
+  active: string | number | undefined
+}>({
   keyword: '',
-  active: undefined as boolean | undefined,
+  active: undefined,
 })
 
 // 分頁配置
@@ -146,8 +149,12 @@ const handleTableChange = (pag: TablePaginationConfig): void => {
 }
 
 // 頁面跳轉
-const goToCreate = (): void => router.push('/suppliers/create')
-const goToEdit = (id: number): void => router.push(`/suppliers/${id}/edit`)
+const goToCreate = () => {
+  router.push('/suppliers/create')
+}
+const goToEdit = (id: number) => {
+  router.push(`/suppliers/${id}/edit`)
+}
 
 // 處理刪除
 const handleDelete = async (id: number): Promise<void> => {

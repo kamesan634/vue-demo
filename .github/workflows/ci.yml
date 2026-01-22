@@ -34,9 +34,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 類型檢查
+      # TypeScript 類型檢查
       - name: Type check
-        run: npm run type-check
+        run: npm run typecheck
 
       # ESLint 檢查
       - name: Lint
